@@ -1,21 +1,18 @@
 // Import express Router
-const expensesRouter = require('express').Router();
+const balanceRouter = require('express').Router();
 
 // Body-parsing middleware to parse the request body
 const bodyParser = require('body-parser');
-expensesRouter.use(bodyParser.json());
+balanceRouter.use(bodyParser.json());
 
 // Import functions from db.js
 const {
     getAllFromDatabase,
-    getFromDatabaseById,
-    addToDatabase,
-    updateInstanceInDatabase,
-    deleteFromDatabasebyId,
+    getBalanceFromDatabase
 } = require('./db.js')
 
-// Export expensesRouter for use in other modules
-module.exports = expensesRouter;
+// Export balanceRouter for use in other modules
+module.exports = balanceRouter;
 
 // Endpoint to handle requests for the balance
 balanceRouter
