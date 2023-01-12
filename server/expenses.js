@@ -27,7 +27,7 @@ expensesRouter
   
 // Endpoint to handle requests to a specific expense resource by ID
 expensesRouter
-  .route('expenses/:expenseId')
+  .route('/expenses/:expenseId')
   // Get a specific expense by ID
   .get((req, res) => res.send(getFromDatabasebyId('expenses', req.params.expenseId)))
   // Update an existing expense in the list
