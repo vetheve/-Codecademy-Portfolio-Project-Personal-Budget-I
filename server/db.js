@@ -1,4 +1,3 @@
-
 // Function to retrieve all data from the JSON database 
 const getAllFromDatabase = (key) => {
     // Parse the data from the JSON file

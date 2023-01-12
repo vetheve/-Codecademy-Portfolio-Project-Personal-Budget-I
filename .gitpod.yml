@@ -8,3 +8,4 @@ tasks:
   - init: npm install express --force
   - init: npm install cors --force
   - init: npm install body-parser --force
+  - init: npm install --save ulid
