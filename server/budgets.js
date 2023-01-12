@@ -3,7 +3,7 @@ const budgetsRouter = require('express').Router();
 
 // Body-parsing middleware to parse the request body
 const bodyParser = require('body-parser');
-minionsRouter.use(bodyParser.json());
+budgetsRouter.use(bodyParser.json());
 
 // Import functions from db.js
 const {
