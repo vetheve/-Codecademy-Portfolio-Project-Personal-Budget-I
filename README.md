@@ -378,9 +378,13 @@ Empty
 ```javascript
 // Endpoint to handle requests for the balances
 balancesRouter
-  .route('/budgest/balance/:year/:month')
-  // Get all balances for budget categories in 
-  .get((req, res) => res.send(getAllFromDatabase('balances')))
+  .route('/balances/:year/:month')
+  // Get all revenues for a specific month and year
+  .get((req, res) => {
+    const year = req.params.year;
+    const month = req.params.month;
+    res.send(getAllFromDatabase('balances', year, month));
+  });
 ```
 
 ## Models
