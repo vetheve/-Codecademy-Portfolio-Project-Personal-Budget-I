@@ -8,13 +8,13 @@ const apiRouter = express.Router();
 const budgetsRouter = require('./budgets.js');
 const expensesRouter = require('./expenses.js');
 const revenuesRouter = require('./revenues.js');
-const balancesRouter = require('./balances.js')
+const balanceRouter = require('./balance.js')
 
 // Use the imported routers with the '/budgets', '/expenses', '/revenues', and '/balances' routes
 apiRouter.use('/budgets', budgetsRouter);
 apiRouter.use('/expenses', expensesRouter);
 apiRouter.use('/revenues', revenuesRouter);
-apiRouter.use('/balances', balancesRouter);
+apiRouter.use('/balance', balanceRouter);
 
 // Export the apiRouter
 module.exports = apiRouter
