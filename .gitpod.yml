@@ -12,3 +12,4 @@ tasks:
   - init: npm init ava
   - init: npm fund
   - init: npm install --save-dev supertest
+  - init : sudo apt install tree

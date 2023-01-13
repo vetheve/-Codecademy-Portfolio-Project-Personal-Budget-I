@@ -19,6 +19,7 @@ module.exports = budgetsRouter;
 
 // Endpoint to handle requests to budgets  
 budgetsRouter
+  .route('/')
   // Endpoint to get all budgets
   .get((req, res) => res.send(getAllFromDatabase('budgets')))
   // Add a new budget to the list
@@ -26,12 +27,13 @@ budgetsRouter
   
 // Endpoint to handle requests to a specific budget resource by ID
 budgetsRouter
-  .route('/:budgetId')
+  .route('/:id')
   // Get a specific budget by ID
-  .get((req, res) => res.send(getFromDatabasebyId('budgets', req.params.budgetId)))
+  .get((req, res) => res.send(getFromDatabaseById('budgets', req.params.id,)))
   // Update an existing budget in the list
-  .put((req, res) => res.send(updateInstanceInDatabase('budgets', req.params.budgetId, req.body)))
+  .put((req, res) => res.send(updateInstanceInDatabase('budgets', req.params.id, req.body)))
   // Delete a specific budget from the list
-  .delete((req, res) => res.sendStatus(deleteFromDatabasebyId('budgets', req.params.budgetId)? 204 : 500));
+  .delete((req, res) => res.sendStatus(deleteFromDatabasebyId('budgets', req.params.id)? 204 : 500));
+
 
   

@@ -6,7 +6,7 @@ const fs = require('fs'); // Importing the fs library
 const getAllFromDatabase = (key) => {
     try {
       // Read the data from the file and parse it as JSON
-      const data = JSON.parse(fs.readFileSync('./data.json', 'utf8'));
+      const data = JSON.parse(fs.readFileSync('./server/data.json', 'utf8'));
   
       // Check if the data is empty
       if (!data) {
@@ -14,7 +14,7 @@ const getAllFromDatabase = (key) => {
       }
   
       // Return the data for the specified key
-      return console.log(data[key]);
+      return data[key];
     } catch (err) {
       // Log the error message to the console
       console.error(err);
@@ -38,7 +38,7 @@ const getFromDatabaseById = (key, id) => {
         return console.log(data[key].find(element => element.id === id));
     } catch (err) {
         // Log any errors that occur
-        console.error(err);
+        console.error(err.message);
         // Return null if there is an error
         return null;
     }

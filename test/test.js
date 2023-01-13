@@ -21,21 +21,26 @@ test('GET /budgets should return an array of all budgets', async t => {
     t.is(res.status, 200);
     // Asserting that the response body is an array
     t.true(Array.isArray(res.body));
+    // Print the object
+    t.log(res.body)
 });
 
-// Test to check if the GET request to '/budgets' route returns a specific budget with the given ID
 test('GET /budgets/:id should retrieve a specific budget with the given ID', async t => {
     // Selecting a budget ID to test with
     const budgetId = 'some id - rent';
     
     // Making a GET request to the '/budgets/:id' route with the selected budget ID
-    const res = await request(app).get(`/budgets/:id`);
+    const res = await request(app).get(`/budgets/${budgetId}`);
     
     // Asserting that the status code of the response is 200
     t.is(res.status, 200);
+    t.log(res.body)
     
     // Asserting that the response body is an object and contains the selected budget ID
-    t.true(typeof res.body === 'object' && res.body.id === budgetId);
+    t.true(typeof res.body === 'object');
+
+    // Asserting that the response body contains the selected budget ID
+    t.true(res.body.id === budgetId);
 });
 
 /*========================================================================================*/
