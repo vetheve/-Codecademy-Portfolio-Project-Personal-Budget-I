@@ -1,0 +1,48 @@
+{
+    budgets: [{
+        "id": "some id - rent",
+        "name": "rent",
+        "amount": 100
+    },
+    {
+        "id": "some other id - groceries",
+        "name": "groceries",
+        "amount": 50
+    }],
+    expenses: [{
+        "id": "1423423512312",
+        "dt_create": "2022-10-30T" 
+        "dt_update": "2022-10-30T" 
+        "dt_value": "2022-10-30T" 
+        "amount": "100",
+        "description": "rent 2022/10"
+        "budget_id": "some id - rent"
+    },
+    {
+        "id": "1423423512312",
+        "dt_create": "2022-09-30T" 
+        "dt_update": "2022-09-30T"
+        "dt_value": "2022-09-30T" 
+        "amount": "100",
+        "description": "rent 2022/09"
+        "budget_id": "some id - rent"
+    }],
+    revenues: [
+    {
+        "id": "1423423512312",
+        "dt_create": "2022-09-30T" 
+        "dt_update": "2022-09-30T"  
+        "dt_value": "2022-09-30T" 
+        "amount": "180",
+        "description": "salary 2022/09"
+    },
+    {
+        "id": "142315846312", 
+        "dt_create": "2022-08-30T"  
+        "dt_update": "2022-08-30T" 
+        "dt_value": "2022-08-30T"  
+        "amount": "180",
+        "description": "salary 2022/08"
+    }
+    ]
+}
