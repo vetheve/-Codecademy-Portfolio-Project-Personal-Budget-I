@@ -9,3 +9,5 @@ tasks:
   - init: npm install cors --force
   - init: npm install body-parser --force
   - init: npm install --save ulid
+  - init: npm init ava
+  - init: npm fund
