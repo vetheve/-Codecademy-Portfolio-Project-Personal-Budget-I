@@ -7,10 +7,12 @@
     "test": "ava"
   },
   "devDependencies": {
-    "ava": "^5.1.0"
+    "ava": "^5.1.0",
+    "supertest": "^6.3.3"
   },
-	"ava": {
-		"files": [
-			"test/*"
-		]
+  "ava": {
+    "files": [
+      "test/**/*"
+    ]
+  }
 }

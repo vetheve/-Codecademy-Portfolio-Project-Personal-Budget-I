@@ -11,3 +11,4 @@ tasks:
   - init: npm install --save ulid
   - init: npm init ava
   - init: npm fund
+  - init: npm install --save-dev supertest

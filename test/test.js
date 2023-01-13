@@ -15,6 +15,23 @@ test('GET /budgets should return an array of all budgets', async t => {
     t.true(Array.isArray(res.body));
 });
 
+// Test to check if the GET request to '/budgets' route returns a specific budget with the given ID
+test('GET /budgets/:id should retrieve a specific budget with the given ID', async t => {
+    // Selecting a budget ID to test with
+    const budgetId = 'some id - rent';
+    
+    // Making a GET request to the '/revenues/:id' route with the selected budget ID
+    const res = await request(apiRouter).get(`/budgets/${budgetId}`);
+    
+    // Asserting that the status code of the response is 200
+    t.is(res.status, 200);
+    
+    // Asserting that the response body is an object and contains the selected budget ID
+    t.true(typeof res.body === 'object' && res.body.id === budgetId);
+});
+
+/*========================================================================================*/
+
 /*EXPENSES*/
 
 // Test to check if the GET request to '/expenses' route returns an array of all expenses
@@ -28,28 +45,51 @@ test('GET /expenses should return an array of all expenses', async t => {
     t.true(Array.isArray(res.body));
 });
 
+// Test to check if the GET request to '/expenses' route returns a specific expense with the given ID
+test('GET /expenses/:id should retrieve a specific budget with the given ID', async t => {
+    // Selecting a expense ID to test with
+    const expenseId = '1423423512312';
+    
+    // Making a GET request to the '/expenses/:id' route with the selected expense ID
+    const res = await request(apiRouter).get(`/expenses/${expenseId}`);
+    
+    // Asserting that the status code of the response is 200
+    t.is(res.status, 200);
+    
+    // Asserting that the response body is an object and contains the selected expense ID
+    t.true(typeof res.body === 'object' && res.body.id === expenseId);
+});
+
+/*========================================================================================*/
+
 /*REVENUES*/
 
 // Test to check if the GET request to '/revenues' route returns an array of all revenues
-test('GET /expenses should return an array of all expenses', async t => {
+test('GET /revenues should return an array of all revenues', async t => {
     // Making a GET request to the '/budgets' route
-    const res = await request(apiRouter).get('/expenses');
+    const res = await request(apiRouter).get('/revenues');
 
     // Asserting that the status code of the response is 200
     t.is(res.status, 200);
     // Asserting that the response body is an array
     t.true(Array.isArray(res.body));
 });
+
+// Test to check if the GET request to '/revenues' route returns a specific expense with the given ID
+test('GET /expenses/:id should retrieve a specific budget with the given ID', async t => {
+    // Selecting a revenues ID to test with
+    const expenseId = '1423423512314';
+    
+    // Making a GET request to the '/revenues/:id' route with the selected expense ID
+    const res = await request(apiRouter).get(`/revenues/${revenueId}`);
+    
+    // Asserting that the status code of the response is 200
+    t.is(res.status, 200);
+    
+    // Asserting that the response body is an object and contains the selected expense ID
+    t.true(typeof res.body === 'object' && res.body.id === expenseId);
+});
+
+/*========================================================================================*/
 
 /*BALANCE*/
-
-// Test to check if the GET request to '/balance' route returns an array of all balances
-test('GET /balance should return an array of all balances', async t => {
-    // Making a GET request to the '/balance' route
-    const res = await request(apiRouter).get('/expenses');
-
-    // Asserting that the status code of the response is 200
-    t.is(res.status, 200);
-    // Asserting that the response body is an array
-    t.true(Array.isArray(res.body));
-});

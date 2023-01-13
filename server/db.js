@@ -23,14 +23,34 @@ const getAllFromDatabase = (key) => {
     }
   };
 
+// Function to retrieve a specific data from the JSON database 
+const getFromDatabaseById = (key, id) => {
+    try {
+        // Read and parse the data from the JSON file
+        const data = JSON.parse(fs.readFileSync('./data.json', 'utf8'));
+        
+        // Check if the data for the specified key is empty
+        if (!data[key]) {
+            return null;
+        }
+        
+        // Search for the object with the specified ID and return it
+        return data[key].find(element => element.id === id);
+    } catch (err) {
+        // Log any errors that occur
+        console.error(err);
+        // Return null if there is an error
+        return null;
+    }
+};
+
+
+/*========================================================================================*/
 
 /* MODULE EXPORTS*/
 
+ 
 module.exports = {
     getAllFromDatabase,
-    getFromDatabaseById,
-    addToDatabase,
-    updateInstanceInDatabase,
-    deleteFromDatabasebyId,
-    deleteAllFromDatabase,
+    getFromDatabaseById
   };
