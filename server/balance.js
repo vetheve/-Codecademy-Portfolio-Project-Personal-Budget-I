@@ -16,13 +16,12 @@ module.exports = balanceRouter;
 
 // Endpoint to handle requests for the balance
 balanceRouter
-  .route('/balance')
   // Get all revenues
   .get((req, res) => res.send(getAllFromDatabase('balance')))
   
 // Endpoint to handle requests for the balance
 balanceRouter
-  .route('/balance/:year/:month')
+  .route('/:year/:month')
   // Get all revenues for a specific month and year
   .get((req, res) => {
     const year = req.params.year;
@@ -32,7 +31,7 @@ balanceRouter
 
 // Endpoint to handle requests for the budget balance
 balanceRouter
-  .route('/budgets/:budget_id/balance/:year/:month')
+  .route('/budgets/:budget_id/:year/:month')
   // Get balance information for a specific budget category and month/year
   .get((req, res) => {
     const budget_id = req.params.budget_id;

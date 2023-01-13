@@ -19,7 +19,6 @@ module.exports = budgetsRouter;
 
 // Endpoint to handle requests to budgets  
 budgetsRouter
-  .route('/budgets')
   // Endpoint to get all budgets
   .get((req, res) => res.send(getAllFromDatabase('budgets')))
   // Add a new budget to the list
@@ -27,7 +26,7 @@ budgetsRouter
   
 // Endpoint to handle requests to a specific budget resource by ID
 budgetsRouter
-  .route('/budgets/:budgetId')
+  .route('/:budgetId')
   // Get a specific budget by ID
   .get((req, res) => res.send(getFromDatabasebyId('budgets', req.params.budgetId)))
   // Update an existing budget in the list

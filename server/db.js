@@ -14,7 +14,7 @@ const getAllFromDatabase = (key) => {
       }
   
       // Return the data for the specified key
-      return data[key];
+      return console.log(data[key]);
     } catch (err) {
       // Log the error message to the console
       console.error(err);
@@ -35,7 +35,7 @@ const getFromDatabaseById = (key, id) => {
         }
         
         // Search for the object with the specified ID and return it
-        return data[key].find(element => element.id === id);
+        return console.log(data[key].find(element => element.id === id));
     } catch (err) {
         // Log any errors that occur
         console.error(err);
@@ -43,6 +43,7 @@ const getFromDatabaseById = (key, id) => {
         return null;
     }
 };
+
 
 
 /*========================================================================================*/

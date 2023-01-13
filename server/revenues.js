@@ -19,7 +19,6 @@ module.exports = revenuesRouter;
 
 // Endpoint to handle requests for the revenues
 revenuesRouter
-  .route('/revenues')
   // Get all revenues
   .get((req, res) => res.send(getAllFromDatabase('revenues')))
   // Create a new revenue
@@ -27,7 +26,7 @@ revenuesRouter
   
 // Endpoint to handle requests to a specific revenue resource by ID
 revenuesRouter
-  .route('/revenues/:revenueId')
+  .route('/:revenueId')
   // Get a specific revenue by ID
   .get((req, res) => res.send(getFromDatabasebyId('revenues', req.params.revenueId)))
   // Update an existing revenue in the list

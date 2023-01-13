@@ -7,7 +7,7 @@ const express = require('express'); // Importing express
 const app = express();
 
 // Use the apiRouter with the '/api' route
-app.use('/api', apiRouter);
+app.use('/', apiRouter);
 
 
 /*BUDGETS*/
@@ -28,8 +28,8 @@ test('GET /budgets/:id should retrieve a specific budget with the given ID', asy
     // Selecting a budget ID to test with
     const budgetId = 'some id - rent';
     
-    // Making a GET request to the '/revenues/:id' route with the selected budget ID
-    const res = await request(app).get(`/revenues/:id`);
+    // Making a GET request to the '/budgets/:id' route with the selected budget ID
+    const res = await request(app).get(`/budgets/:id`);
     
     // Asserting that the status code of the response is 200
     t.is(res.status, 200);

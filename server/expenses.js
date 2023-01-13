@@ -19,7 +19,6 @@ module.exports = expensesRouter;
 
 // Endpoint to handle requests for the expenses
 expensesRouter
-  .route('/expenses')
   // Get all expenses
   .get((req, res) => res.send(getAllFromDatabase('expenses')))
   // Create a new expense
@@ -27,7 +26,7 @@ expensesRouter
   
 // Endpoint to handle requests to a specific expense resource by ID
 expensesRouter
-  .route('/expenses/:expenseId')
+  .route('/:expenseId')
   // Get a specific expense by ID
   .get((req, res) => res.send(getFromDatabasebyId('expenses', req.params.expenseId)))
   // Update an existing expense in the list
