@@ -3,10 +3,10 @@ const fs = require('fs'); // Importing the fs library
 /*FUNCTIONS*/
 
 // Function to retrieve all data from the JSON database 
-const getAllFromDatabase = (key) => {
+const getAllFromDatabase = (filename) =>  (key) => {
     try {
       // Read the data from the file and parse it as JSON
-      const data = JSON.parse(fs.readFileSync('./data.json', 'utf8'));
+      const data = JSON.parse(fs.readFileSync(`./${filename}.json`, 'utf8'));
   
       // Check if the data is empty
       if (!data) {
@@ -24,10 +24,10 @@ const getAllFromDatabase = (key) => {
   };
 
 // Function to retrieve a specific data from the JSON database 
-const getFromDatabaseById = (key, id) => {
+const getFromDatabaseById = (filename) => (key, id) => {
     try {
         // Read and parse the data from the JSON file
-        const data = JSON.parse(fs.readFileSync('./data.json', 'utf8'));
+        const data = JSON.parse(fs.readFileSync(`./${filename}.json`, 'utf8'));
         
         // Check if the data for the specified key is empty
         if (!data[key]) {
@@ -50,7 +50,7 @@ const getFromDatabaseById = (key, id) => {
 /* MODULE EXPORTS*/
 
  
-module.exports = {
-    getAllFromDatabase,
-    getFromDatabaseById
-  };
+module.exports.default = (filename) => {
+    getAllFromDatabase(filename),
+    getFromDatabaseById(filename)
+};
