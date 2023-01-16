@@ -19,9 +19,11 @@ test('GET /budgets should return an array of all budgets', async t => {
 
     // Asserting that the status code of the response is 200
     t.is(res.status, 200);
+
     // Asserting that the response body is an array
     t.true(Array.isArray(res.body));
-    // Print the object
+
+    // Print the array in the console
     t.log(res.body)
 });
 
@@ -34,6 +36,8 @@ test('GET /budgets/:id should retrieve a specific budget with the given ID', asy
     
     // Asserting that the status code of the response is 200
     t.is(res.status, 200);
+
+    // Print the object in the console
     t.log(res.body)
     
     // Asserting that the response body is an object and contains the selected budget ID
@@ -54,8 +58,12 @@ test('GET /expenses should return an array of all expenses', async t => {
 
     // Asserting that the status code of the response is 200
     t.is(res.status, 200);
+
     // Asserting that the response body is an array
     t.true(Array.isArray(res.body));
+    
+    // Print the array in the console
+    t.log(res.body)
 });
 
 // Test to check if the GET request to '/expenses' route returns a specific expense with the given ID
@@ -68,6 +76,9 @@ test('GET /expenses/:id should retrieve a specific budget with the given ID', as
     
     // Asserting that the status code of the response is 200
     t.is(res.status, 200);
+
+    // Print the object in the console
+    t.log(res.body)
     
     // Asserting that the response body is an object and contains the selected expense ID
     t.true(typeof res.body === 'object' && res.body.id === expenseId);
@@ -84,8 +95,12 @@ test('GET /revenues should return an array of all revenues', async t => {
 
     // Asserting that the status code of the response is 200
     t.is(res.status, 200);
+
     // Asserting that the response body is an array
     t.true(Array.isArray(res.body));
+
+        // Print the array in the console
+    t.log(res.body)
 });
 
 // Test to check if the GET request to '/revenues' route returns a specific expense with the given ID
@@ -99,6 +114,9 @@ test('GET /revenues/:id should retrieve a specific budget with the given ID', as
     // Asserting that the status code of the response is 200
     t.is(res.status, 200);
     
+    // Print the object in the console
+    t.log(res.body)
+        
     // Asserting that the response body is an object and contains the selected expense ID
     t.true(typeof res.body === 'object' && res.body.id === revenuesId);
 });
