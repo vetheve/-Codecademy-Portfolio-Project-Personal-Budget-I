@@ -25,9 +25,11 @@ const getAllFromDatabase = (key) => {
 
 // Function to retrieve a specific data from the JSON database 
 const getFromDatabaseById = (key, id) => {
+    console.log(key);
+    console.log(id);
     try {
         // Read and parse the data from the JSON file
-        const data = JSON.parse(fs.readFileSync('./data.json', 'utf8'));
+        const data = JSON.parse(fs.readFileSync('./server/data.json', 'utf8'));
         
         // Check if the data for the specified key is empty
         if (!data[key]) {
@@ -35,7 +37,7 @@ const getFromDatabaseById = (key, id) => {
         }
         
         // Search for the object with the specified ID and return it
-        return console.log(data[key].find(element => element.id === id));
+        return data[key].find(element => element.id === id);
     } catch (err) {
         // Log any errors that occur
         console.error(err.message);
