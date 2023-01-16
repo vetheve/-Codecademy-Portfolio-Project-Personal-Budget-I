@@ -3,12 +3,18 @@
       {
         "id": "some id - rent",
         "name": "rent",
-        "amount": "100"
+        "amount": "100",
+        "dt_create": "2022-10-30T",
+        "dt_update": "2022-10-30T",
+        "dt_value": "2022-10-30T"
       },
       {
         "id": "some other id - groceries",
         "name": "groceries",
         "amount": "50"
+        "dt_create": "2022-10-30T",
+        "dt_update": "2022-10-30T",
+        "dt_value": "2022-10-30T"
       }
     ],
     "expenses": [

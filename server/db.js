@@ -46,7 +46,17 @@ const getFromDatabaseById = (key, id) => {
     }
 };
 
+/*========================================================================================*/
 
+/* MODULE EXPORTS*/
+
+// This code imports the ULID library, which is used to generate unique, lexicographically sortable identifiers.
+const ulid = require('ulid');
+
+// This function uses the ulid library to generate a new ULID and returns it.
+function generateULID() {
+    return ulid.ulid();
+}
 
 /*========================================================================================*/
 
@@ -55,5 +65,6 @@ const getFromDatabaseById = (key, id) => {
  
 module.exports = {
     getAllFromDatabase,
-    getFromDatabaseById
+    getFromDatabaseById,
+    generateULID
   };
