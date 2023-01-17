@@ -19,6 +19,14 @@ Prerequisites:
 - Git and GitHub
 - Postman
 
+## Envelopes Budgeting
+
+- __Housing__: This category includes expenses such as rent or mortgage payments, property taxes, and home insurance.
+- __Transportation__: This category includes expenses related to getting around, such as car payments, gas, and public transportation costs.
+- __Utilities__: This category includes expenses for services such as electricity, water, gas, internet, and cable.
+- __Food__: This category includes expenses for groceries, dining out, and other food-related costs.
+- __Personal__: This category includes expenses for personal items such as clothing, entertainment, and hobbies.
+
 ## Endpoints
 - `/budgets` (CR)
 - `/budgets/{budget_id}` (RUD)

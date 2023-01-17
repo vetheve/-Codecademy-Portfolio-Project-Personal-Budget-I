@@ -25,8 +25,6 @@ const getAllFromDatabase = (key) => {
 
 // Function to retrieve a specific data from the JSON database 
 const getFromDatabaseById = (key, id) => {
-    console.log(key);
-    console.log(id);
     try {
         // Read and parse the data from the JSON file
         const data = JSON.parse(fs.readFileSync('./server/data.json', 'utf8'));
@@ -48,7 +46,7 @@ const getFromDatabaseById = (key, id) => {
 
 /*========================================================================================*/
 
-/* MODULE EXPORTS*/
+/* ULID*/
 
 // This code imports the ULID library, which is used to generate unique, lexicographically sortable identifiers.
 const ulid = require('ulid');
