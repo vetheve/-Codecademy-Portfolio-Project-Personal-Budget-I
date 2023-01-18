@@ -44,6 +44,53 @@ const getFromDatabaseById = (key, id) => {
     }
 };
 
+//This function filters records from the database by month and year
+const filterRecordsByMonth = (key, month, year) => {
+  try {
+      // Retrieve all records from the database
+      const records = getAllFromDatabase(key);
+      if (records) {
+          // Filter records by the provided month and year
+          const filteredRecords = records.filter(record => {
+              let dateObject = new Date(record.dt_value);
+              return dateObject.getMonth() + 1 === month && dateObject.getFullYear() === year;
+          });
+          // Return the filtered records
+          return filteredRecords;
+      } else {
+          console.log("No records found");
+          return null;
+      }
+  } catch (error) {
+      console.log(error);
+      return null;
+  }
+};
+
+// This function filters records from the database by year
+const filterRecordsByYear = (key, year) => {
+  try {
+      // Retrieve all records from the database
+      const records = getAllFromDatabase(key);
+      if (records) {
+          // Filter records by the provided year
+          const filteredRecords = records.filter(record => {
+              let dateObject = new Date(record.dt_value);
+              return dateObject.getFullYear() === year;
+          });
+          // Return the filtered records
+          return filteredRecords;
+      } else {
+          console.log("No records found");
+          return null;
+      }
+  } catch (error) {
+      console.log(error);
+      return null;
+  }
+};
+
+
 /*========================================================================================*/
 
 /* ULID*/
