@@ -1,18 +1,15 @@
 const fs = require('fs'); // Importing the fs library
+const data = JSON.parse(fs.readFileSync('./server/data.json', 'utf8')); // Read the data from the file and parse it as JSON
 
-/*FUNCTIONS*/
+/*FILTERING FUNCTIONS*/
 
 // Function to retrieve all data from the JSON database 
 const getAllFromDatabase = (key) => {
     try {
-      // Read the data from the file and parse it as JSON
-      const data = JSON.parse(fs.readFileSync('./server/data.json', 'utf8'));
-  
       // Check if the data is empty
       if (!data) {
         return null;
       }
-  
       // Return the data for the specified key
       return data[key];
     } catch (err) {
@@ -26,14 +23,10 @@ const getAllFromDatabase = (key) => {
 // Function to retrieve a specific data from the JSON database 
 const getFromDatabaseById = (key, id) => {
     try {
-        // Read and parse the data from the JSON file
-        const data = JSON.parse(fs.readFileSync('./server/data.json', 'utf8'));
-        
         // Check if the data for the specified key is empty
         if (!data[key]) {
             return null;
         }
-        
         // Search for the object with the specified ID and return it
         return data[key].find(element => element.id === id);
     } catch (err) {
@@ -90,10 +83,62 @@ const filterRecordsByYear = (key, year) => {
   }
 };
 
+/*========================================================================================*/
+
+/*CALCULATING FUNCTIONS*/
+
+// Function to calculate the total of any array passed as a parameter
+const calculateTotal = (arr) => {
+    // Use reduce method to iterate over the array and sum up the amounts
+    return arr.reduce((acc, curr) => {
+        // Add the current amount to the accumulator
+        return acc + parseFloat(curr.amount)
+    }, 0);
+}
+
+// Function to calculate the "Net Financial Balance" by calling the helper function 'calculateTotal'
+const calculateNetBalance = () => {
+    try {
+        // Calculate the total revenues by passing the revenues array to the helper function
+        const totalRevenues = calculateTotal(data.revenues);
+        // Calculate the total expenses by passing the expenses array to the helper function
+        const totalExpenses = calculateTotal(data.expenses);
+        // Calculate the "Net Financial Balance" by subtracting the total expenses from the total revenues
+        const netBalance = totalRevenues - totalExpenses;
+        // Return the Net Balance
+        return netBalance;
+    } catch (err) {
+        // Log any errors that occur
+        console.error(err.message);
+        // Return null if there is an error
+        return null;
+    }
+};
+
+// Function to calculate the "Budgeted Amount Balance" by calling the helper function 'calculateTotal'
+const calculateBudgetBalance = () => {
+    try {
+        // Calculate the total budgets by passing the revenues array to the helper function
+        const totalBudgets = calculateTotal(data.budgets);
+        // Calculate the total expenses by passing the expenses array to the helper function
+        const totalExpenses = calculateTotal(data.expenses);
+        // Calculate the "Budgeted Amount Balance" by subtracting the total expenses from the total budgets
+        const budgetBalance = totalBudgets - totalExpenses;
+        // Return the Budget Balance
+        return budgetBalance;
+    } catch (err) {
+        // Log any errors that occur
+        console.error(err.message);
+        // Return null if there is an error
+        return null;
+    }
+};
+
+
 
 /*========================================================================================*/
 
-/* ULID*/
+/*ULID FUNCTION*/
 
 // This code imports the ULID library, which is used to generate unique, lexicographically sortable identifiers.
 const ulid = require('ulid');

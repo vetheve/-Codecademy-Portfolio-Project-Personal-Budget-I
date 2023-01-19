@@ -29,7 +29,7 @@ test('GET /budgets should return an array of all budgets', async t => {
 
 test('GET /budgets/:id should retrieve a specific budget with the given ID', async t => {
     // Selecting a budget ID to test with
-    const budgetId = 'some id - rent';
+    const budgetId = '2021-01 Monthly Housing Budget';
     
     // Making a GET request to the '/budgets/:id' route with the selected budget ID
     const res = await request(app).get(`/budgets/${budgetId}`);
@@ -69,7 +69,7 @@ test('GET /expenses should return an array of all expenses', async t => {
 // Test to check if the GET request to '/expenses' route returns a specific expense with the given ID
 test('GET /expenses/:id should retrieve a specific expense with the given ID', async t => {
     // Selecting a expense ID to test with
-    const expenseId = '1423423512312';
+    const expenseId = '01EXC70S4N9GC6TGYERY9BD7ZZ';
     
     // Making a GET request to the '/expenses/:id' route with the selected expense ID
     const res = await request(app).get(`/expenses/${expenseId}`);
@@ -106,7 +106,7 @@ test('GET /revenues should return an array of all revenues', async t => {
 // Test to check if the GET request to '/revenues' route returns a specific expense with the given ID
 test('GET /revenues/:id should retrieve a specific budget with the given ID', async t => {
     // Selecting a revenues ID to test with
-    const revenuesId = '1423423512314';
+    const revenuesId = '01EXBDPV5NM0W5RSMG31WMQM6B';
     
     // Making a GET request to the '/revenues/:id' route with the selected expense ID
     const res = await request(app).get(`/revenues/${revenuesId}`);
