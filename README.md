@@ -27,6 +27,22 @@ Prerequisites:
 - __Food__: This category includes expenses for groceries, dining out, and other food-related costs.
 - __Personal__: This category includes expenses for personal items such as clothing, entertainment, and hobbies.
 
+## Balances
+
+- __Budgeted Amount Balance__: Refers to the remaining amount of the budgeted amount after expenses have been taken into account. It represents the difference between the budgeted amount and the total expenses for a specific category or budget. It is an indicator of how well you are sticking to your budget.
+
+$$
+Budgeted Amount Balance = Budgeted Amount - Total Expenses
+$$
+
+- __Net Financial Balance__: refers to the overall financial status, it is the difference between the total revenues and the total expenses. It represents the overall financial position. It is an indicator of the overall financial health.
+
+$$
+Net Financial Balance = Total Revenues - Total Expenses
+$$
+
+> In summary, __Budgeted Amount Balance__ is a measure of how well you are sticking to your budget, while __Net Financial Balance__ is a measure of the overall financial health.
+
 ## Endpoints
 - `/budgets` (CR)
 - `/budgets/{budget_id}` (RUD)
