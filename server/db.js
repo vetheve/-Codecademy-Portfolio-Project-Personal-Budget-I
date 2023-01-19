@@ -1,5 +1,5 @@
 const fs = require('fs'); // Importing the fs library
-const data = JSON.parse(fs.readFileSync('./server/data.json', 'utf8')); // Read the data from the file and parse it as JSON
+const jsonData = JSON.parse(fs.readFileSync('./server/data.json', 'utf8')); // Read the data from the file and parse it as JSON
 
 /*FILTERING FUNCTIONS*/
 
@@ -7,11 +7,11 @@ const data = JSON.parse(fs.readFileSync('./server/data.json', 'utf8')); // Read 
 const getAllFromDatabase = (key) => {
     try {
       // Check if the data is empty
-      if (!data) {
+      if (!jsonData) {
         return null;
       }
       // Return the data for the specified key
-      return data[key];
+      return jsonData[key];
     } catch (err) {
       // Log the error message to the console
       console.error(err);
@@ -24,11 +24,33 @@ const getAllFromDatabase = (key) => {
 const getFromDatabaseById = (key, id) => {
     try {
         // Check if the data for the specified key is empty
-        if (!data[key]) {
+        if (!jsonData[key]) {
             return null;
         }
         // Search for the object with the specified ID and return it
-        return data[key].find(element => element.id === id);
+        return jsonData[key].find(element => element.id === id);
+    } catch (err) {
+        // Log any errors that occur
+        console.error(err.message);
+        // Return null if there is an error
+        return null;
+    }
+};
+
+//This function filters records from the database by item and the value
+const getFromDatabaseByItem = (item, value) => {
+    try {
+        // Filter the budgets array by the specified item and value
+        const budgets = jsonData.budgets.filter(budget => budget[item] === value);
+        // Filter the expenses array by the specified item and value
+        const expenses = jsonData.expenses.filter(expense => expense[item] === value);
+        // Create an object with the filtered budgets and expenses
+        const result = {
+            budgets: budgets,
+            expenses: expenses
+        }
+        // Return the result
+        return result;
     } catch (err) {
         // Log any errors that occur
         console.error(err.message);
@@ -38,49 +60,59 @@ const getFromDatabaseById = (key, id) => {
 };
 
 //This function filters records from the database by month and year
-const filterRecordsByMonth = (key, month, year) => {
-  try {
-      // Retrieve all records from the database
-      const records = getAllFromDatabase(key);
-      if (records) {
-          // Filter records by the provided month and year
-          const filteredRecords = records.filter(record => {
-              let dateObject = new Date(record.dt_value);
+const filterKeyRecordsByMonth = (month, year) => {
+    try {
+        // Filter the budgets array by the provided month and year
+        const budgets = jsonData.budgets.filter(budget => {
+              let dateObject = new Date(budget.dt_value);
               return dateObject.getMonth() + 1 === month && dateObject.getFullYear() === year;
           });
-          // Return the filtered records
-          return filteredRecords;
-      } else {
-          console.log("No records found");
-          return null;
-      }
-  } catch (error) {
-      console.log(error);
-      return null;
-  }
+        // Filter the expenses array by the provided month and year
+        const expenses = jsonData.expenses.filter(expense => {
+              let dateObject = new Date(expense.dt_value);
+              return dateObject.getMonth() + 1 === month && dateObject.getFullYear() === year;
+          });
+        // Create an object with the filtered budgets and expenses
+        const result = {
+            budgets: budgets,
+            expenses: expenses
+        }
+        // Return the result
+        return result;
+    } catch (err) {
+        // Log any errors that occur
+        console.error(err.message);
+        // Return null if there is an error
+        return null;
+    }
 };
 
-// This function filters records from the database by year
-const filterRecordsByYear = (key, year) => {
-  try {
-      // Retrieve all records from the database
-      const records = getAllFromDatabase(key);
-      if (records) {
-          // Filter records by the provided year
-          const filteredRecords = records.filter(record => {
-              let dateObject = new Date(record.dt_value);
+//This function filters records from the database by  year
+const filterKeyRecordsByYear = (year) => {
+    try {
+        // Filter the budgets array by the provided year
+        const budgets = jsonData.budgets.filter(budget => {
+              let dateObject = new Date(budget.dt_value);
               return dateObject.getFullYear() === year;
           });
-          // Return the filtered records
-          return filteredRecords;
-      } else {
-          console.log("No records found");
-          return null;
-      }
-  } catch (error) {
-      console.log(error);
-      return null;
-  }
+        // Filter the expenses array by the provided year
+        const expenses = jsonData.expenses.filter(expense => {
+              let dateObject = new Date(expense.dt_value);
+              return dateObject.getFullYear() === year;
+          });
+        // Create an object with the filtered budgets and expenses
+        const result = {
+            budgets: budgets,
+            expenses: expenses
+        }
+        // Return the result
+        return result;
+    } catch (err) {
+        // Log any errors that occur
+        console.error(err.message);
+        // Return null if there is an error
+        return null;
+    }
 };
 
 /*========================================================================================*/
@@ -97,7 +129,7 @@ const calculateTotal = (arr) => {
 }
 
 // Function to calculate the "Net Financial Balance" by calling the helper function 'calculateTotal'
-const calculateNetBalance = () => {
+const calculateNetBalance = (data = jsonData) => {
     try {
         // Calculate the total revenues by passing the revenues array to the helper function
         const totalRevenues = calculateTotal(data.revenues);
@@ -116,7 +148,7 @@ const calculateNetBalance = () => {
 };
 
 // Function to calculate the "Budgeted Amount Balance" by calling the helper function 'calculateTotal'
-const calculateBudgetBalance = () => {
+const calculateBudgetBalance = (data = jsonData) => {
     try {
         // Calculate the total budgets by passing the revenues array to the helper function
         const totalBudgets = calculateTotal(data.budgets);
@@ -133,7 +165,6 @@ const calculateBudgetBalance = () => {
         return null;
     }
 };
-
 
 
 /*========================================================================================*/
