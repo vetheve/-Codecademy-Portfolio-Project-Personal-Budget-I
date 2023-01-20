@@ -59,8 +59,65 @@ const getFromDatabaseByItem = (item, value, data = jsonData) => {
     }
 };
 
-//This function filters records from the database by month and year
-const filterRecordsByMonth = (month, year, data = jsonData) => {
+//This function filters revenues & expenses records from the database by month and year
+const filterNetBalanceByMonth = (month, year, data = jsonData) => {
+    try {
+        // Filter the budgets array by the provided month and year
+        const revenues = data.revenues.filter(revenue => {
+              let dateObject = new Date(revenue.dt_value);
+              return dateObject.getMonth() + 1 === month && dateObject.getFullYear() === year;
+          });
+        // Filter the expenses array by the provided month and year
+        const expenses = data.expenses.filter(expense => {
+              let dateObject = new Date(expense.dt_value);
+              return dateObject.getMonth() + 1 === month && dateObject.getFullYear() === year;
+          });
+        // Create an object with the filtered budgets and expenses
+        const result = {
+            revenues: revenues,
+            expenses: expenses
+        }
+        // Return the result
+        return result;
+    } catch (err) {
+        // Log any errors that occur
+        console.error(err.message);
+        // Return null if there is an error
+        return null;
+    }
+};
+
+//This function filters revenues & expenses records from the database by  year
+const filterNetBalanceByYear = (year, data = jsonData) => {
+    try {
+        // Filter the budgets array by the provided year
+        const revenues = data.revenues.filter(revenue => {
+              let dateObject = new Date(revenue.dt_value);
+              return dateObject.getFullYear() === year;
+          });
+        // Filter the expenses array by the provided year
+        const expenses = data.expenses.filter(expense => {
+              let dateObject = new Date(expense.dt_value);
+              return dateObject.getFullYear() === year;
+          });
+        // Create an object with the filtered budgets and expenses
+        const result = {
+            revenues: revenues,
+            expenses: expenses
+        }
+        // Return the result
+        return result;
+    } catch (err) {
+        // Log any errors that occur
+        console.error(err.message);
+        // Return null if there is an error
+        return null;
+    }
+};
+
+
+//This function filters budgets & expenses records from the database by month and year
+const filterBudgetBalanceByMonth = (month, year, data = jsonData) => {
     try {
         // Filter the budgets array by the provided month and year
         const budgets = data.budgets.filter(budget => {
@@ -87,8 +144,8 @@ const filterRecordsByMonth = (month, year, data = jsonData) => {
     }
 };
 
-//This function filters records from the database by  year
-const filterRecordsByYear = (year, data = jsonData) => {
+//This function filters budgets & expenses records from the database by year
+const filterBudgetBalanceByYear = (year, data = jsonData) => {
     try {
         // Filter the budgets array by the provided year
         const budgets = data.budgets.filter(budget => {
@@ -138,7 +195,7 @@ const calculateNetBalance = (data = jsonData) => {
         // Calculate the "Net Financial Balance" by subtracting the total expenses from the total revenues
         const netBalance = totalRevenues - totalExpenses;
         // Return the Net Balance
-        return netBalance;
+        return {"Net balance" : netBalance};
     } catch (err) {
         // Log any errors that occur
         console.error(err.message);
@@ -157,7 +214,7 @@ const calculateBudgetBalance = (data = jsonData) => {
         // Calculate the "Budgeted Amount Balance" by subtracting the total expenses from the total budgets
         const budgetBalance = totalBudgets - totalExpenses;
         // Return the Budget Balance
-        return budgetBalance;
+        return {"Budget balance" : budgetBalance};
     } catch (err) {
         // Log any errors that occur
         console.error(err.message);
@@ -187,8 +244,10 @@ module.exports = {
     getAllFromDatabase,
     getFromDatabaseById,
     getFromDatabaseByItem,
-    filterRecordsByMonth,
-    filterRecordsByYear,
+    filterNetBalanceByMonth,
+    filterNetBalanceByYear,
+    filterBudgetBalanceByMonth,
+    filterBudgetBalanceByYear,
     calculateNetBalance,
     calculateBudgetBalance,
     generateULID

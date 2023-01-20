@@ -14,7 +14,7 @@ const netBalanceRouter = require('./net_balance.js');
 apiRouter.use('/budgets', budgetsRouter);
 apiRouter.use('/expenses', expensesRouter);
 apiRouter.use('/revenues', revenuesRouter);
-apiRouter.use('/balance', netBalanceRouter);
+apiRouter.use('/netbalance', netBalanceRouter);
 
 // Export the apiRouter
 module.exports = apiRouter

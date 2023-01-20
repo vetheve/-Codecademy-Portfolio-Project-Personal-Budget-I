@@ -14,6 +14,7 @@ app.use('/', apiRouter);
 
 // Test to check if the GET request to '/budgets' route returns an array of all budgets
 test('GET /budgets should return an array of all budgets', async t => {
+
     // Making a GET request to the '/budgets' route
     const res = await request(app).get('/budgets');
 
@@ -28,6 +29,7 @@ test('GET /budgets should return an array of all budgets', async t => {
 });
 
 test('GET /budgets/:id should retrieve a specific budget with the given ID', async t => {
+
     // Selecting a budget ID to test with
     const budgetId = '2021-01 Monthly Housing Budget';
     
@@ -53,6 +55,7 @@ test('GET /budgets/:id should retrieve a specific budget with the given ID', asy
 
 // Test to check if the GET request to '/expenses' route returns an array of all expenses
 test('GET /expenses should return an array of all expenses', async t => {
+
     // Making a GET request to the '/budgets' route
     const res = await request(app).get('/expenses');
 
@@ -68,6 +71,7 @@ test('GET /expenses should return an array of all expenses', async t => {
 
 // Test to check if the GET request to '/expenses' route returns a specific expense with the given ID
 test('GET /expenses/:id should retrieve a specific expense with the given ID', async t => {
+
     // Selecting a expense ID to test with
     const expenseId = '01EXC70S4N9GC6TGYERY9BD7ZZ';
     
@@ -90,6 +94,7 @@ test('GET /expenses/:id should retrieve a specific expense with the given ID', a
 
 // Test to check if the GET request to '/revenues' route returns an array of all revenues
 test('GET /revenues should return an array of all revenues', async t => {
+
     // Making a GET request to the '/budgets' route
     const res = await request(app).get('/revenues');
 
@@ -105,6 +110,7 @@ test('GET /revenues should return an array of all revenues', async t => {
 
 // Test to check if the GET request to '/revenues' route returns a specific expense with the given ID
 test('GET /revenues/:id should retrieve a specific budget with the given ID', async t => {
+
     // Selecting a revenues ID to test with
     const revenuesId = '01EXBDPV5NM0W5RSMG31WMQM6B';
     
@@ -124,3 +130,44 @@ test('GET /revenues/:id should retrieve a specific budget with the given ID', as
 /*========================================================================================*/
 
 /*BALANCE*/
+
+// Test to check if the Post request to '/netbalance' route returns the total net balance
+test('Post /netbalance should returns the total net balance', async t => {
+
+    // Making a Post request to the '/netbalance' route which does not exist yet
+    const res = await request(app).post(`/netbalance`);
+    
+    // Asserting that the status code of the response is 200
+    t.is(res.status, 200);
+    
+    // Print the object in the console
+    t.log(res.body)
+        
+    // Asserting that the response body is an object and contains the key 'Net balance'
+    t.true(typeof res.body === 'object' && 'Net balance' in res.body);
+    
+    // Asserting that the value of the 'Net balance' key is 5640
+    t.is(res.body['Net balance'], 5640);
+});
+
+// Test to check if the Post request to '/netbalance/:year' route returns the total net balance by year
+test('Post /netbalance/:year should returns the total net balance by year', async t => {
+
+    // Selecting a year to test with
+    const year = '2021';
+
+    // Making a Post request to the '/netbalance' route which does not exist yet
+    const res = await request(app).post(`/netbalance?year=${year}`);
+    
+    // Asserting that the status code of the response is 200
+    t.is(res.status, 200);
+    
+    // Print the object in the console
+    t.log(res.body)
+        
+    // Asserting that the response body is an object and contains the key 'Net balance'
+    t.true(typeof res.body === 'object' && 'Net balance' in res.body);
+    
+    // Asserting that the value of the 'Net balance' key is 5640
+    t.is(res.body['Net balance'], 5640);
+});
