@@ -22,20 +22,20 @@ netBalanceRouter
   // Post the total net balance
   .post((req, res) => res.send(calculateNetBalance()))
   
-// Endpoint to handle requests for the balance
+// Endpoint to handle requests for the total net balance by year and month
 netBalanceRouter
   .route('/:year/:month')
-  // Get all revenues for a specific month and year
+  // Post the total net balance for a specific year and month
   .post((req, res) => {
-    const year = req.params.year;
-    const month = req.params.month;
-    res.send(calculateNetBalance(filterNetBalanceByMonth(year, month)));
+    const year = req.query.year;
+    const month = req.query.month;
+    res.send(calculateNetBalance(filterNetBalanceByMonth(month, year)));
   });
 
-// Endpoint to handle requests for the balance
+// Endpoint to handle requests for the balance by year
 netBalanceRouter
 .route('/:year')
-// Get all revenues for a specific month and year
+// Post the total net balance for a specific year
 .post((req, res) => {
   const year = req.query.year;
   res.send(calculateNetBalance(filterNetBalanceByYear(year)));
