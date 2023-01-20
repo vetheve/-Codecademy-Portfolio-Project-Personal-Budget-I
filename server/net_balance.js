@@ -19,25 +19,25 @@ module.exports = netBalanceRouter;
 // Endpoint to handle requests for the total net balance
 netBalanceRouter
   .route('/')
-  // Post the total net balance
-  .post((req, res) => res.send(calculateNetBalance()))
+  // Get the total net balance
+  .get((req, res) => res.send(calculateNetBalance()))
   
 // Endpoint to handle requests for the total net balance by year and month
 netBalanceRouter
   .route('/:year/:month')
-  // Post the total net balance for a specific year and month
-  .post((req, res) => {
-    const year = req.query.year;
-    const month = req.query.month;
+  // Get the total net balance for a specific year and month
+  .get((req, res) => {
+    const year = req.params.year;
+    const month = req.params.month;
     res.send(calculateNetBalance(filterNetBalanceByMonth(month, year)));
   });
 
 // Endpoint to handle requests for the balance by year
 netBalanceRouter
 .route('/:year')
-// Post the total net balance for a specific year
-.post((req, res) => {
-  const year = req.query.year;
+// Get the total net balance for a specific year
+.get((req, res) => {
+  const year = req.params.year;
   res.send(calculateNetBalance(filterNetBalanceByYear(year)));
 });
 

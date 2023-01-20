@@ -131,11 +131,11 @@ test('GET /revenues/:id should retrieve a specific budget with the given ID', as
 
 /*NET BALANCE*/
 
-// Test to check if the Post request to '/netbalance' route returns the total net balance
-test('Post /netbalance should returns the total net balance', async t => {
+// Test to check if the Get request to '/netbalance' route returns the total net balance
+test('Get /netbalance should returns the total net balance', async t => {
 
-    // Making a Post request to the '/netbalance' route which does not exist yet
-    const res = await request(app).post(`/netbalance`);
+    // Making a Get request to the '/netbalance' route which does not exist yet
+    const res = await request(app).get(`/netbalance`);
     
     // Asserting that the status code of the response is 200
     t.is(res.status, 200);
@@ -150,14 +150,14 @@ test('Post /netbalance should returns the total net balance', async t => {
     t.is(res.body['Net balance'], 5640);
 });
 
-// Test to check if the Post request to '/netbalance/:year' route returns the total net balance by year
-test('Post /netbalance/:year should returns the total net balance by year', async t => {
+// Test to check if the Get request to '/netbalance/:year' route returns the total net balance by year
+test('Get /netbalance/:year should returns the total net balance by year', async t => {
 
     // Selecting a year to test with
     const year = 2022;
 
-    // Making a Post request to the '/netbalance/:year' route which does not exist yet
-    const res = await request(app).post(`/netbalance/${year}`);
+    // Making a Get request to the '/netbalance/:year' route which does not exist yet
+    const res = await request(app).get(`/netbalance/${year}`);
     
     // Asserting that the status code of the response is 200
     t.is(res.status, 200);
@@ -172,15 +172,15 @@ test('Post /netbalance/:year should returns the total net balance by year', asyn
     t.is(res.body['Net balance'], 5640);
 });
 
-// Test to check if the Post request to '/netbalance/:year/:month' route returns the total net balance by year and month
-test('Post /netbalance/:year/:month should returns the total net balance by year', async t => {
+// Test to check if the Get request to '/netbalance/:year/:month' route returns the total net balance by year and month
+test('Get /netbalance/:year/:month should returns the total net balance by year', async t => {
 
     // Selecting a year and a month to test with
     const year = 2021;
     const month = 11;
 
-    // Making a Post request to the '/netbalance/:year/:month' route which does not exist yet
-    const res = await request(app).post(`/netbalance/${year}/${month}`);
+    // Making a Get request to the '/netbalance/:year/:month' route which does not exist yet
+    const res = await request(app).get(`/netbalance/${year}/${month}`);
     
     // Asserting that the status code of the response is 200
     t.is(res.status, 200);
