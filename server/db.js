@@ -21,14 +21,14 @@ const getAllFromDatabase = (key) => {
   };
 
 // Function to retrieve a specific data from the JSON database 
-const getFromDatabaseById = (key, id) => {
+const getFromDatabaseById = (key, id, data = jsonData) => {
     try {
         // Check if the data for the specified key is empty
-        if (!jsonData[key]) {
+        if (!data[key]) {
             return null;
         }
         // Search for the object with the specified ID and return it
-        return jsonData[key].find(element => element.id === id);
+        return data[key].find(element => element.id === id);
     } catch (err) {
         // Log any errors that occur
         console.error(err.message);
@@ -38,12 +38,12 @@ const getFromDatabaseById = (key, id) => {
 };
 
 //This function filters records from the database by item and the value
-const getFromDatabaseByItem = (item, value) => {
+const getFromDatabaseByItem = (item, value, data = jsonData) => {
     try {
         // Filter the budgets array by the specified item and value
-        const budgets = jsonData.budgets.filter(budget => budget[item] === value);
+        const budgets = data.budgets.filter(budget => budget[item] === value);
         // Filter the expenses array by the specified item and value
-        const expenses = jsonData.expenses.filter(expense => expense[item] === value);
+        const expenses = data.expenses.filter(expense => expense[item] === value);
         // Create an object with the filtered budgets and expenses
         const result = {
             budgets: budgets,
@@ -60,15 +60,15 @@ const getFromDatabaseByItem = (item, value) => {
 };
 
 //This function filters records from the database by month and year
-const filterKeyRecordsByMonth = (month, year) => {
+const filterRecordsByMonth = (month, year, data = jsonData) => {
     try {
         // Filter the budgets array by the provided month and year
-        const budgets = jsonData.budgets.filter(budget => {
+        const budgets = data.budgets.filter(budget => {
               let dateObject = new Date(budget.dt_value);
               return dateObject.getMonth() + 1 === month && dateObject.getFullYear() === year;
           });
         // Filter the expenses array by the provided month and year
-        const expenses = jsonData.expenses.filter(expense => {
+        const expenses = data.expenses.filter(expense => {
               let dateObject = new Date(expense.dt_value);
               return dateObject.getMonth() + 1 === month && dateObject.getFullYear() === year;
           });
@@ -88,15 +88,15 @@ const filterKeyRecordsByMonth = (month, year) => {
 };
 
 //This function filters records from the database by  year
-const filterKeyRecordsByYear = (year) => {
+const filterRecordsByYear = (year, data = jsonData) => {
     try {
         // Filter the budgets array by the provided year
-        const budgets = jsonData.budgets.filter(budget => {
+        const budgets = data.budgets.filter(budget => {
               let dateObject = new Date(budget.dt_value);
               return dateObject.getFullYear() === year;
           });
         // Filter the expenses array by the provided year
-        const expenses = jsonData.expenses.filter(expense => {
+        const expenses = data.expenses.filter(expense => {
               let dateObject = new Date(expense.dt_value);
               return dateObject.getFullYear() === year;
           });
@@ -129,7 +129,7 @@ const calculateTotal = (arr) => {
 }
 
 // Function to calculate the "Net Financial Balance" by calling the helper function 'calculateTotal'
-const calculateNetBalance = (data = jsonData) => {
+const calculateNetBalance = () => {
     try {
         // Calculate the total revenues by passing the revenues array to the helper function
         const totalRevenues = calculateTotal(data.revenues);
@@ -166,7 +166,6 @@ const calculateBudgetBalance = (data = jsonData) => {
     }
 };
 
-
 /*========================================================================================*/
 
 /*ULID FUNCTION*/
@@ -187,5 +186,10 @@ function generateULID() {
 module.exports = {
     getAllFromDatabase,
     getFromDatabaseById,
+    getFromDatabaseByItem,
+    filterRecordsByMonth,
+    filterRecordsByYear,
+    calculateNetBalance,
+    calculateBudgetBalance,
     generateULID
   };
