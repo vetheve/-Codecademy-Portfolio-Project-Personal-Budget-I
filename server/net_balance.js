@@ -6,32 +6,46 @@ const bodyParser = require('body-parser');
 balanceRouter.use(bodyParser.json());
 
 // Import functions from db.js
-const {
+module.exports = {
   getAllFromDatabase,
   getFromDatabaseById,
-  addToDatabase,
-  updateInstanceInDatabase,
-  deleteFromDatabasebyId,
-} 
+  getFromDatabaseByItem,
+  filterRecordsByMonth,
+  filterRecordsByYear,
+  calculateNetBalance,
+  calculateBudgetBalance,
+  generateULID
+};
 
 // Export balanceRouter for use in other modules
-module.exports = balanceRouter;
+module.exports = netBalanceRouter;
 
 // Endpoint to handle requests for the balance
-balanceRouter
+netBalanceRouter
   // Get all revenues
-  .get((req, res) => res.send(getAllFromDatabase('balance')))
+  .get((req, res) => res.send(calculateNetBalance()))
   
 // Endpoint to handle requests for the balance
-balanceRouter
+netBalanceRouter
   .route('/:year/:month')
   // Get all revenues for a specific month and year
   .get((req, res) => {
     const year = req.params.year;
     const month = req.params.month;
-    res.send(getAllFromDatabase('balance', year, month));
+    res.send(calculateNetBalance(filterRecordsByMonth(year, month)));
   });
 
+// Endpoint to handle requests for the balance
+netBalanceRouter
+.route('/:year')
+// Get all revenues for a specific month and year
+.get((req, res) => {
+  const year = req.params.year;
+  const month = req.params.month;
+  res.send(calculateNetBalance(filterRecordsByMonth(year, month)));
+});
+
+/*
 // Endpoint to handle requests for the budget balance
 balanceRouter
   .route('/budgets/:budget_id/:year/:month')
@@ -41,7 +55,7 @@ balanceRouter
     const year = req.params.year;
     const month = req.params.month;
     res.send(getBalanceFromDatabase(budget_id, year, month));
-  });
+  });*/
 
 /*
 

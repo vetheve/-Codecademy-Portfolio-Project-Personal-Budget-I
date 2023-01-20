@@ -129,7 +129,7 @@ const calculateTotal = (arr) => {
 }
 
 // Function to calculate the "Net Financial Balance" by calling the helper function 'calculateTotal'
-const calculateNetBalance = () => {
+const calculateNetBalance = (data = jsonData) => {
     try {
         // Calculate the total revenues by passing the revenues array to the helper function
         const totalRevenues = calculateTotal(data.revenues);
