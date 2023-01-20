@@ -13,7 +13,7 @@ app.use('/', apiRouter);
 /*BUDGETS*/
 
 // Test to check if the GET request to '/budgets' route returns an array of all budgets
-test('GET /budgets should return an array of all budgets', async t => {
+test('1.1 GET /budgets should return an array of all budgets', async t => {
 
     // Making a GET request to the '/budgets' route
     const res = await request(app).get('/budgets');
@@ -28,7 +28,7 @@ test('GET /budgets should return an array of all budgets', async t => {
     t.log(res.body)
 });
 
-test('GET /budgets/:id should retrieve a specific budget with the given ID', async t => {
+test('1.2 GET /budgets/:id should retrieve a specific budget with the given ID', async t => {
 
     // Selecting a budget ID to test with
     const budgetId = '2021-01 Monthly Housing Budget';
@@ -54,7 +54,7 @@ test('GET /budgets/:id should retrieve a specific budget with the given ID', asy
 /*EXPENSES*/
 
 // Test to check if the GET request to '/expenses' route returns an array of all expenses
-test('GET /expenses should return an array of all expenses', async t => {
+test('2.1 GET /expenses should return an array of all expenses', async t => {
 
     // Making a GET request to the '/budgets' route
     const res = await request(app).get('/expenses');
@@ -70,7 +70,7 @@ test('GET /expenses should return an array of all expenses', async t => {
 });
 
 // Test to check if the GET request to '/expenses' route returns a specific expense with the given ID
-test('GET /expenses/:id should retrieve a specific expense with the given ID', async t => {
+test('2.2 GET /expenses/:id should retrieve a specific expense with the given ID', async t => {
 
     // Selecting a expense ID to test with
     const expenseId = '01EXC70S4N9GC6TGYERY9BD7ZZ';
@@ -93,7 +93,7 @@ test('GET /expenses/:id should retrieve a specific expense with the given ID', a
 /*REVENUES*/
 
 // Test to check if the GET request to '/revenues' route returns an array of all revenues
-test('GET /revenues should return an array of all revenues', async t => {
+test('3.1 GET /revenues should return an array of all revenues', async t => {
 
     // Making a GET request to the '/budgets' route
     const res = await request(app).get('/revenues');
@@ -109,7 +109,7 @@ test('GET /revenues should return an array of all revenues', async t => {
 });
 
 // Test to check if the GET request to '/revenues' route returns a specific expense with the given ID
-test('GET /revenues/:id should retrieve a specific budget with the given ID', async t => {
+test('3.2 GET /revenues/:id should retrieve a specific budget with the given ID', async t => {
 
     // Selecting a revenues ID to test with
     const revenuesId = '01EXBDPV5NM0W5RSMG31WMQM6B';
@@ -132,7 +132,7 @@ test('GET /revenues/:id should retrieve a specific budget with the given ID', as
 /*NET BALANCE*/
 
 // Test to check if the Get request to '/netbalance' route returns the total net balance
-test('Get /netbalance should returns the total net balance', async t => {
+test('4.1 Get /netbalance should returns the total net balance', async t => {
 
     // Making a Get request to the '/netbalance' route which does not exist yet
     const res = await request(app).get(`/netbalance`);
@@ -151,10 +151,10 @@ test('Get /netbalance should returns the total net balance', async t => {
 });
 
 // Test to check if the Get request to '/netbalance/:year' route returns the total net balance by year
-test('Get /netbalance/:year should returns the total net balance by year', async t => {
+test('4.2 Get /netbalance/:year should returns the total net balance by year', async t => {
 
     // Selecting a year to test with
-    const year = 2022;
+    const year = '2021';
 
     // Making a Get request to the '/netbalance/:year' route which does not exist yet
     const res = await request(app).get(`/netbalance/${year}`);
@@ -173,11 +173,11 @@ test('Get /netbalance/:year should returns the total net balance by year', async
 });
 
 // Test to check if the Get request to '/netbalance/:year/:month' route returns the total net balance by year and month
-test('Get /netbalance/:year/:month should returns the total net balance by year', async t => {
+test('4.3 Get /netbalance/:year/:month should returns the total net balance by year', async t => {
 
     // Selecting a year and a month to test with
-    const year = 2021;
-    const month = 11;
+    const year = '2021';
+    const month = '11';
 
     // Making a Get request to the '/netbalance/:year/:month' route which does not exist yet
     const res = await request(app).get(`/netbalance/${year}/${month}`);

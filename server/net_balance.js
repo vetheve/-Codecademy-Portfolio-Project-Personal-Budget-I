@@ -27,8 +27,8 @@ netBalanceRouter
   .route('/:year/:month')
   // Get the total net balance for a specific year and month
   .get((req, res) => {
-    const year = req.params.year;
-    const month = req.params.month;
+    const year = parseInt(req.params.year);
+    const month = parseInt(req.params.month);
     res.send(calculateNetBalance(filterNetBalanceByMonth(month, year)));
   });
 
@@ -37,7 +37,7 @@ netBalanceRouter
 .route('/:year')
 // Get the total net balance for a specific year
 .get((req, res) => {
-  const year = req.params.year;
+  const year = parseInt(req.params.year);
   res.send(calculateNetBalance(filterNetBalanceByYear(year)));
 });
 
