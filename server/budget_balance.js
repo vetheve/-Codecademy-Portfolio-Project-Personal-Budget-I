@@ -7,7 +7,7 @@ budgetBalanceRouter.use(bodyParser.json());
 
 // Import functions from db.js
 const {
-    getFromDatabaseByItem,
+    getFromDatabaseByCategory,
     filterBudgetBalanceByMonth,
     filterBudgetBalanceByYear,
     calculateBudgetBalance,
@@ -47,7 +47,7 @@ budgetBalanceRouter
 // Get the total budget balance for a specific category
 .get((req, res) => {
   const category = req.params.category;
-  res.send(calculateBudgetBalance(getFromDatabaseByItem(category)));
+  res.send(calculateBudgetBalance(getFromDatabaseByCategory(category)));
 });
 
 budgetBalanceRouter
@@ -56,8 +56,8 @@ budgetBalanceRouter
 .get((req, res) => {
   const category = req.params.category;
   const year = parseInt(req.params.year);
-  const filtereddRecords = filterBudgetBalanceByYear(year);
-  res.send(calculateBudgetBalance(getFromDatabaseByItem(category,filtereddRecords)));
+  const filteredRecords = filterBudgetBalanceByYear(year);
+  res.send(calculateBudgetBalance(getFromDatabaseByCategory(category,filteredRecords)));
 });
 
 budgetBalanceRouter
@@ -67,6 +67,6 @@ budgetBalanceRouter
   const category = req.params.category;
   const year = parseInt(req.params.year);
   const month = parseInt(req.params.month);
-  const filtereddRecords = filterBudgetBalanceByMonth(month, year);
-  res.send(calculateBudgetBalance(getFromDatabaseByItem(category,filtereddRecords)));
+  const filteredRecords = filterBudgetBalanceByMonth(month, year);
+  res.send(calculateBudgetBalance(getFromDatabaseByCategory(category,filteredRecords)));
 });

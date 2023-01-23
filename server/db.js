@@ -37,8 +37,26 @@ const getFromDatabaseById = (key, id, data = jsonData) => {
     }
 };
 
+
+// Function to retrieve a specific data from the JSON database 
+const getFromDatabaseByItem = (key, item, value, data = jsonData) => {
+    try {
+        // Check if the data for the specified key is empty
+        if (!data[key]) {
+            return null;
+        }
+        // Search for the object with the specified ID and return it
+        return data[key].find(element => element[item] === value);
+    } catch (err) {
+        // Log any errors that occur
+        console.error(err.message);
+        // Return null if there is an error
+        return null;
+    }
+};
+
 //This function filters records from the database by category
-const getFromDatabaseByItem = (value, data = jsonData) => {
+const getFromDatabaseByCategory = (value, data = jsonData) => {
     try {
         // Filter the budgets array by the specified category
         const budgets = data.budgets.filter(budget => budget['category'] === value);
@@ -174,6 +192,101 @@ const filterBudgetBalanceByYear = (year, data = jsonData) => {
 
 /*========================================================================================*/
 
+/*POST FUNCTIONS*/
+
+// This function pushes a new budget object in the jsonData
+const addBudgetToDatabase = (id, category, amount, data = jsonData) => {
+    try {
+        // Generates timestamp and converts it to ISO string format
+        const timestamp = Date.now();
+        const isoString = new Date(timestamp).toISOString();
+
+        // Creates budget object with provided information and default timestamp and ID values
+        const object = {
+            id: id,
+            dt_create: isoString,
+            dt_update: isoString,
+            dt_value: isoString,
+            category: category,
+            amount: amount
+        };
+
+        // Pushes the budget object to the jsonData
+        return data['budgets'].push(object);
+    } catch (err) {
+        // Log any errors that occur
+        console.error(err.message);
+        // Return null if there is an error
+        return null;
+    }
+};
+
+// This function pushes a new expense object in the jsonData
+const addExpenseToDatabase = (amount, description, budget_id, category, data = jsonData) => {
+    try {
+        // Generates timestamp and converts it to ISO string format
+        const timestamp = Date.now();
+        const isoString = new Date(timestamp).toISOString();
+
+        // Generates unique ID for the expenses object
+        const newId = generateULID();
+
+        // Creates  expense object with provided information and default timestamp and ID values
+        const object = {
+            id: newId,
+            dt_create: isoString,
+            dt_update: isoString,
+            dt_value: isoString,
+            category: category,
+            amount: amount,
+            description: description,
+            budget_id: budget_id,
+            category: category
+        };
+
+        // Pushes the expenses object to the jsonData
+        return data['expenses'].push(object);
+    } catch (err) {
+        // Log any errors that occur
+        console.error(err.message);
+        // Return null if there is an error
+        return null;
+    }
+};
+
+// This function pushes a new revenue object in the jsonData
+const addRevenueToDatabase = (amount, description, data = jsonData) => {
+    try {
+        // Generates timestamp and converts it to ISO string format
+        const timestamp = Date.now();
+        const isoString = new Date(timestamp).toISOString();
+
+        // Generates unique ID for the revenue object
+        const newId = generateULID();
+
+        // Creates revenue object with provided information and default timestamp and ID values
+        const object = {
+            id: newId,
+            dt_create: isoString,
+            dt_update: isoString,
+            dt_value: isoString,
+            amount: amount,
+            description: description
+        };
+
+        // Pushes the revenue object to the specified key in the jsonData object
+        data['revenues'].push(object);
+    } catch (err) {
+        // Log any errors that occur
+        console.error(err.message);
+        // Return null if there is an error
+        return null;
+    }
+};
+
+
+/*========================================================================================*/
+
 /*CALCULATING FUNCTIONS*/
 
 // Function to calculate the total of any array passed as a parameter
@@ -244,6 +357,7 @@ module.exports = {
     getAllFromDatabase,
     getFromDatabaseById,
     getFromDatabaseByItem,
+    getFromDatabaseByCategory,
     filterNetBalanceByMonth,
     filterNetBalanceByYear,
     filterBudgetBalanceByMonth,
