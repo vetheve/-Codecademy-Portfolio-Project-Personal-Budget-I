@@ -275,7 +275,7 @@ const addRevenueToDatabase = (amount, description, data = jsonData) => {
         };
 
         // Pushes the revenue object to the specified key in the jsonData object
-        data['revenues'].push(object);
+    return data['revenues'].push(object);
     } catch (err) {
         // Log any errors that occur
         console.error(err.message);
@@ -284,6 +284,28 @@ const addRevenueToDatabase = (amount, description, data = jsonData) => {
     }
 };
 
+/*========================================================================================*/
+
+/*DELETE FUNCTION*/
+
+// This function delete an object in the jsonData
+const deleteFromDatabasebyId = (key, id, data = jsonData) => {
+    try {
+        // Check if the data for the specified key is empty
+        if (!data[key]) {
+            return null;
+        }
+        // Search for the object with the specified ID and delete it
+        data[key] = data[key].filter(element => element.id !== id);
+        fs.writeFile('./data.json', JSON.stringify(data), (err) => {
+            if (err) console.log(err);
+            console.log("Successfully Written to File.");
+        });
+    } catch (err) {
+        // Log any errors that occur
+        console.error(err.message);
+    }
+};
 
 /*========================================================================================*/
 
@@ -362,6 +384,9 @@ module.exports = {
     filterNetBalanceByYear,
     filterBudgetBalanceByMonth,
     filterBudgetBalanceByYear,
+    addBudgetToDatabase,
+    addExpenseToDatabase,
+    addRevenueToDatabase,
     calculateNetBalance,
     calculateBudgetBalance,
     generateULID
