@@ -7,7 +7,6 @@ netBalanceRouter.use(bodyParser.json());
 
 // Import functions from db.js
 const {
-    getFromDatabaseByItem,
     filterNetBalanceByMonth,
     filterNetBalanceByYear,
     calculateNetBalance,

@@ -37,13 +37,13 @@ const getFromDatabaseById = (key, id, data = jsonData) => {
     }
 };
 
-//This function filters records from the database by item and the value
-const getFromDatabaseByItem = (item, value, data = jsonData) => {
+//This function filters records from the database by category
+const getFromDatabaseByItem = (value, data = jsonData) => {
     try {
-        // Filter the budgets array by the specified item and value
-        const budgets = data.budgets.filter(budget => budget[item] === value);
-        // Filter the expenses array by the specified item and value
-        const expenses = data.expenses.filter(expense => expense[item] === value);
+        // Filter the budgets array by the specified category
+        const budgets = data.budgets.filter(budget => budget['category'] === value);
+        // Filter the expenses array by the specified category
+        const expenses = data.expenses.filter(expense => expense['category'] === value);
         // Create an object with the filtered budgets and expenses
         const result = {
             budgets: budgets,
