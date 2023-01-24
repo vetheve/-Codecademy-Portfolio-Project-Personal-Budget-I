@@ -1,7 +1,7 @@
 const fs = require('fs'); // Importing the fs library
 const jsonData = JSON.parse(fs.readFileSync('./server/data.json', 'utf8')); // Read the data from the file and parse it as JSON
 
-/*FILTERING FUNCTIONS*/
+/*GET AND FILTERING FUNCTIONS*/
 
 // Function to retrieve all data from the JSON database 
 const getAllFromDatabase = (key) => {
@@ -42,6 +42,8 @@ const getFromDatabaseById = (id, data = jsonData) => {
     } catch (error) {
         // Log any errors to the console
         console.log(error);
+        // Return null if there is an error
+        return null;
     }
 };
 
@@ -323,6 +325,45 @@ const deleteFromDatabasebyId = (id, data = jsonData) => {
     } catch (err) {
         // Log any errors that occur
         console.error(err.message);
+    }
+};
+
+/*========================================================================================*/
+
+/*PUT FUNCTION*/
+
+// This function update a specific object in the jsonData
+const updateInstanceInDatabase = (id, key, value, data = jsonData) => {
+    try {
+        // Generates timestamp and converts it to ISO string format
+        const timestamp = Date.now();
+        const isoString = new Date(timestamp).toISOString();
+
+        // Find the object that matches the provided id
+        const object = data.budgets.concat(data.expenses, data.revenues)
+            .find(instance => instance.id === id);
+
+        // If the object is not found, throw an error
+        if (!object) {
+            throw new Error("Instance not found");
+        }
+
+        // Update the key value and dt_update properties
+        object[key] = value;
+        object.dt_update = isoString;
+        console.log("Successfully Updated");
+
+        // write the updated data to the file
+        fs.writeFile('./data.json', JSON.stringify(data), (err) => {
+            if (err) {
+                //handling error while writing the file
+                console.log(err);
+            } else {
+                console.log("Successfully Written to File.");
+            }
+        });
+    } catch (error) {
+        console.log(error);
     }
 };
 
