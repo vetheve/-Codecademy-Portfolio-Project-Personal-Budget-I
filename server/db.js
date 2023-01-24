@@ -302,18 +302,23 @@ const addRevenueToDatabase = (amount, description, data = jsonData) => {
 
 /*DELETE FUNCTION*/
 
-// This function delete an object in the jsonData
-const deleteFromDatabasebyId = (key, id, data = jsonData) => {
+// This function delete a specific object in the jsonData
+const deleteFromDatabasebyId = (id, data = jsonData) => {
     try {
-        // Check if the data for the specified key is empty
-        if (!data[key]) {
-            return null;
+        // Search for the object with the specified ID across all keys
+        for (let key in data) {
+            data[key] = data[key].filter(element => {
+                //filter out the element with the specified id
+                return element.id !== id;
+            });
         }
-        // Search for the object with the specified ID and delete it
-        data[key] = data[key].filter(element => element.id !== id);
         fs.writeFile('./data.json', JSON.stringify(data), (err) => {
-            if (err) console.log(err);
-            console.log("Successfully Written to File.");
+            if (err) {
+                //handling error while writing the file
+                console.log(err);
+            } else {
+                console.log("Successfully Written to File.");
+            }
         });
     } catch (err) {
         // Log any errors that occur
