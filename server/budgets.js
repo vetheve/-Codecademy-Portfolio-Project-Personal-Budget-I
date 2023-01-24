@@ -29,7 +29,7 @@ budgetsRouter
 budgetsRouter
   .route('/:id')
   // Get a specific budget by ID
-  .get((req, res) => {res.send(getFromDatabaseById('budgets', req.params.id))})
+  .get((req, res) => {res.send(getFromDatabaseById(req.params.id))})
   // Update an existing budget in the list
   .put((req, res) => res.send(updateInstanceInDatabase('budgets', req.params.id, req.body)))
   // Delete a specific budget from the list

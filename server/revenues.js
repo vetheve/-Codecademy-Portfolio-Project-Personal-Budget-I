@@ -29,7 +29,7 @@ revenuesRouter
 revenuesRouter
   .route('/:revenueId')
   // Get a specific revenue by ID
-  .get((req, res) => res.send(getFromDatabaseById('revenues', req.params.revenueId)))
+  .get((req, res) => res.send(getFromDatabaseById(req.params.revenueId)))
   // Update an existing revenue in the list
   .put((req, res) => res.send(updateInstanceInDatabase('revenues', req.params.revenueId, req.body)))
   // Delete a specific revenue from the list

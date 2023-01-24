@@ -29,7 +29,7 @@ expensesRouter
 expensesRouter
   .route('/:expenseId')
   // Get a specific expense by ID
-  .get((req, res) => res.send(getFromDatabaseById('expenses', req.params.expenseId)))
+  .get((req, res) => res.send(getFromDatabaseById(req.params.expenseId)))
   // Update an existing expense in the list
   .put((req, res) => res.send(updateInstanceInDatabase('expenses', req.params.expenseId, req.body)))
   // Delete a specific expense from the list

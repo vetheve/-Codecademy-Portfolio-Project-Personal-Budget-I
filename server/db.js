@@ -20,20 +20,28 @@ const getAllFromDatabase = (key) => {
     }
   };
 
-// Function to retrieve a specific data from the JSON database 
-const getFromDatabaseById = (key, id, data = jsonData) => {
+// Function to retrieve a specific data by id from the JSON database 
+const getFromDatabaseById = (id, data = jsonData) => {
     try {
-        // Check if the data for the specified key is empty
-        if (!data[key]) {
-            return null;
-        }
-        // Search for the object with the specified ID and return it
-        return data[key].find(element => element.id === id);
-    } catch (err) {
-        // Log any errors that occur
-        console.error(err.message);
-        // Return null if there is an error
-        return null;
+        // Initialize object variable to null
+        let object = null;
+
+        // Iterate over keys of data object
+        Object.keys(data).some(key => {
+            // Find object with matching id
+            object = data[key].find(item => {
+                return item.id === id;
+            });
+
+            // Return true if object is found
+            return object !== undefined;
+        });
+
+        // Return the object or null if not found
+        return object;
+    } catch (error) {
+        // Log any errors to the console
+        console.log(error);
     }
 };
 
