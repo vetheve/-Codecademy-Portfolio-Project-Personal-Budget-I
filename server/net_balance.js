@@ -19,75 +19,48 @@ module.exports = netBalanceRouter;
 netBalanceRouter
   .route('/')
   // Get the total net balance
-  .get((req, res) => res.send(calculateNetBalance()))
+  .get((req, res) => {
+      const netBalance = calculateNetBalance();
+      if (netBalance) {
+          res.status(200).send(netBalance);
+      } else {
+          res.status(404).send({
+              error: "Net balance not found"
+          });
+      }
+  });
   
-// Endpoint to handle requests for the total net balance by year and month
 netBalanceRouter
   .route('/:year/:month')
   // Get the total net balance for a specific year and month
   .get((req, res) => {
-    const year = parseInt(req.params.year);
-    const month = parseInt(req.params.month);
-    res.send(calculateNetBalance(filterNetBalanceByMonth(month, year)));
+      const year = parseInt(req.params.year);
+      const month = parseInt(req.params.month);
+      const filteredBalance = filterNetBalanceByMonth(month, year)
+      const netBalance = calculateNetBalance(filteredBalance)
+      if (netBalance) {
+          res.status(200).send(netBalance);
+      } else {
+          res.status(404).send({
+              error: "Year and month : Net balance not found"
+          });
+      }
   });
 
 // Endpoint to handle requests for the balance by year
 netBalanceRouter
-.route('/:year')
-// Get the total net balance for a specific year
-.get((req, res) => {
-  const year = parseInt(req.params.year);
-  res.send(calculateNetBalance(filterNetBalanceByYear(year)));
-});
-
-
-/*
-// Endpoint to handle requests for the budget balance
-balanceRouter
-  .route('/budgets/:budget_id/:year/:month')
-  // Get balance information for a specific budget category and month/year
-  .get((req, res) => {
-    const budget_id = req.params.budget_id;
-    const year = req.params.year;
-    const month = req.params.month;
-    res.send(getBalanceFromDatabase(budget_id, year, month));
-  });*/
-
-/*
-
-const express = require('express');
-const balanceRouter = express.Router();
-
-balanceRouter
-  .route('/budgets/balance/:year/:month')
-  // Get all balance for budget categories in a specific month and year
-  .get((req, res) => {
-    const year = req.params.year;
-    const month = req.params.month;
-    const balance = getAllFromDatabase('balance').filter(balance => {
-      // Filter the balance based on the specified year and month
-      return balance.year === year && balance.month === month;
+    .route('/:year')
+    // Get the total net balance for a specific year
+    .get((req, res) => {
+        const year = parseInt(req.params.year);
+        const filteredBalance = filterNetBalanceByYear(year)
+        const netBalance = calculateNetBalance(filteredBalance)
+        if (netBalance) {
+            res.status(200).send(netBalance);
+        } else {
+            res.status(404).send({
+                error: "Year : Net balance not found"
+            });
+        }
     });
-    res.send(balance);
 
-  });
-
-  balanceRouter
-  .route('/budgets/:budget_id/balance/:year/:month')
-  // Get balance for a specific budget category in a specific month and year
-  .get((req, res) => {
-    const budget_id = req.params.budget_id;
-    const year = req.params.year;
-    const month = req.params.month;
-    const balance = getAllFromDatabase('balance').filter(balance => {
-      // Filter the balance based on the specified budget_id, year and month
-      return balance.budget_id === budget_id && balance.year === year && balance.month === month;
-    });
-    if(balance.length > 0) {
-      res.send(balance[0]); // return the first match
-    } else {
-      res.status(404).send({error: 'balance not found'}); //balance not found
-    }
-  });
-
-  */

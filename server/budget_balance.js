@@ -54,7 +54,7 @@ budgetBalanceRouter
           res.status(200).send(budgetBalance);
       } else {
           res.status(404).send({
-              error: "Budget balance not found"
+              error: "Year and month : Budget balance not found"
           });
       }
   });
