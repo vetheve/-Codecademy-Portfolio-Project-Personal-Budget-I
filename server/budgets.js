@@ -35,7 +35,7 @@ budgetsRouter
             res.status(200).send(allBudgets);
         } else {
             res.status(404).send({
-                error: "No budgets found"
+                error: "No expenses found"
             });
         }
     })
@@ -50,7 +50,7 @@ budgetsRouter
             });
         }
     });
-    
+
 // Endpoint to handle requests to a specific budget resource by ID
 budgetsRouter
     .route('/:id')
