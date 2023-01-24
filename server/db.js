@@ -363,6 +363,7 @@ const updateInstanceInDatabase = (id, key, value, data = jsonData) => {
             }
         });
     } catch (error) {
+        // Log any errors that occur
         console.log(error);
     }
 };

@@ -7,11 +7,19 @@ expensesRouter.use(bodyParser.json());
 
 // Import functions from db.js
 const {
-    getAllFromDatabase,
-    getFromDatabaseById,
-    addToDatabase,
-    updateInstanceInDatabase,
-    deleteFromDatabasebyId,
+  getAllFromDatabase,
+  getFromDatabaseById,
+  getFromDatabaseByItem,
+  getFromDatabaseByCategory,
+  filterNetBalanceByMonth,
+  filterNetBalanceByYear,
+  filterBudgetBalanceByMonth,
+  filterBudgetBalanceByYear,
+  addBudgetToDatabase,
+  addExpenseToDatabase,
+  addRevenueToDatabase,
+  calculateNetBalance,
+  calculateBudgetBalance,
 } = require('./db.js')
 
 // Export expensesRouter for use in other modules
@@ -22,15 +30,18 @@ expensesRouter
   .route('/')
   // Get all expenses
   .get((req, res) => res.send(getAllFromDatabase('expenses')))
-  // Create a new expense
-  .post((req, res) => res.send(addToDatabase('expenses', req.body)));
+  // Add a new expense to the list
+  .post((req, res) => {
+    addExpenseToDatabase(req.body.amount, req.body.description, req.body.budget_id, req.body.category)
+    res.status(201).send("Expense added successfully")
+  });
   
 // Endpoint to handle requests to a specific expense resource by ID
 expensesRouter
-  .route('/:expenseId')
+  .route('/:id')
   // Get a specific expense by ID
-  .get((req, res) => res.send(getFromDatabaseById(req.params.expenseId)))
+  .get((req, res) => res.send(getFromDatabaseById(req.params.id)))
   // Update an existing expense in the list
-  .put((req, res) => res.send(updateInstanceInDatabase('expenses', req.params.expenseId, req.body)))
+  .put((req, res) => res.send(updateInstanceInDatabase('expenses', req.params.id, req.body)))
   // Delete a specific expense from the list
-  .delete((req, res) => res.sendStatus(deleteFromDatabasebyId('expenses', req.params.expenseId)? 204 : 500));
+  .delete((req, res) => res.sendStatus(deleteFromDatabasebyId(req.params.id)? 204 : 500));

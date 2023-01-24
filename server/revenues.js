@@ -7,11 +7,19 @@ revenuesRouter.use(bodyParser.json());
 
 // Import functions from db.js
 const {
-    getAllFromDatabase,
-    getFromDatabaseById,
-    addToDatabase,
-    updateInstanceInDatabase,
-    deleteFromDatabasebyId,
+  getAllFromDatabase,
+  getFromDatabaseById,
+  getFromDatabaseByItem,
+  getFromDatabaseByCategory,
+  filterNetBalanceByMonth,
+  filterNetBalanceByYear,
+  filterBudgetBalanceByMonth,
+  filterBudgetBalanceByYear,
+  addBudgetToDatabase,
+  addExpenseToDatabase,
+  addRevenueToDatabase,
+  calculateNetBalance,
+  calculateBudgetBalance,
 } = require('./db.js')
 
 // Export revenuesRouter for use in other modules
@@ -22,15 +30,18 @@ revenuesRouter
   .route('/')
   // Get all revenues
   .get((req, res) => res.send(getAllFromDatabase('revenues')))
-  // Create a new revenue
-  .post((req, res) => res.send(addToDatabase('revenues', req.body)));
+  // Add a new revenue to the list
+  .post((req, res) => {
+    addRevenueToDatabase(req.body.amount, req.body.description)
+    res.status(201).send("Revenue added successfully")
+  });
   
 // Endpoint to handle requests to a specific revenue resource by ID
 revenuesRouter
-  .route('/:revenueId')
+  .route('/:id')
   // Get a specific revenue by ID
-  .get((req, res) => res.send(getFromDatabaseById(req.params.revenueId)))
+  .get((req, res) => res.send(getFromDatabaseById(req.params.id)))
   // Update an existing revenue in the list
-  .put((req, res) => res.send(updateInstanceInDatabase('revenues', req.params.revenueId, req.body)))
+  .put((req, res) => res.send(updateInstanceInDatabase('revenues', req.params.id, req.body)))
   // Delete a specific revenue from the list
-  .delete((req, res) => res.sendStatus(deleteFromDatabasebyId('revenues', req.params.revenueId)? 204 : 500));
+  .delete((req, res) => res.sendStatus(deleteFromDatabasebyId(req.params.id)? 204 : 500));
