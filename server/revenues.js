@@ -61,7 +61,7 @@ revenuesRouter
             res.status(200).send(getRevenue);
         } else {
             res.status(404).send({
-                error: "Revenue not found"
+                error: "ID: Revenue not found"
             });
         }
     })
@@ -76,7 +76,7 @@ revenuesRouter
             res.status(200).send(updatedRevenue);
         } else {
             res.status(404).send({
-                error: "Revenue not found"
+                error: "Failed to update revenue"
             });
         }
     })
@@ -87,7 +87,7 @@ revenuesRouter
             res.status(200).send(deletedRevenue);
         } else {
             res.status(404).send({
-                error: "Revenue not found"
+                error: "Failed to delete revenue"
             });
         }
     });

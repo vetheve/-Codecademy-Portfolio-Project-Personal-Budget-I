@@ -61,7 +61,7 @@ expensesRouter
             res.status(200).send(getExpense);
         } else {
             res.status(404).send({
-                error: "Expense not found"
+                error: "ID: Expense not found"
             });
         }
     })
@@ -76,7 +76,7 @@ expensesRouter
             res.status(200).send(updatedExpense);
         } else {
             res.status(404).send({
-                error: "Expense not found"
+                error: "Failed to update expense"
             });
         }
     })
@@ -87,7 +87,7 @@ expensesRouter
             res.status(200).send(deletedExpense);
         } else {
             res.status(404).send({
-                error: "Expense not found"
+                error: "Failed to delete expense"
             });
         }
     });

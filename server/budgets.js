@@ -35,7 +35,7 @@ budgetsRouter
             res.status(200).send(allBudgets);
         } else {
             res.status(404).send({
-                error: "No expenses found"
+                error: "No budgets not found"
             });
         }
     })
@@ -61,7 +61,7 @@ budgetsRouter
             res.status(200).send(getBudget);
         } else {
             res.status(404).send({
-                error: "Budget not found"
+                error: "ID: Budget not found"
             });
         }
     })
@@ -76,7 +76,7 @@ budgetsRouter
             res.status(200).send(updatedBudget);
         } else {
             res.status(404).send({
-                error: "Budget not found"
+                error: "Failed to update budget"
             });
         }
     })
@@ -87,7 +87,7 @@ budgetsRouter
             res.status(200).send(deletedBudget);
         } else {
             res.status(404).send({
-                error: "Budget not found"
+                error: "Failed to delete budget"
             });
         }
     });
