@@ -212,12 +212,14 @@ const addBudgetToDatabase = (id, category, amount, data = jsonData) => {
         };
 
         // Pushes the budget object to the jsonData
-        return data['budgets'].push(object);
+        data['budgets'].push(object);
+        fs.writeFile('./data.json', JSON.stringify(data), (err) => {
+            if (err) console.log(err);
+            console.log("Successfully Written to File.");
+        });
     } catch (err) {
         // Log any errors that occur
         console.error(err.message);
-        // Return null if there is an error
-        return null;
     }
 };
 
@@ -245,12 +247,14 @@ const addExpenseToDatabase = (amount, description, budget_id, category, data = j
         };
 
         // Pushes the expenses object to the jsonData
-        return data['expenses'].push(object);
+        data['expenses'].push(object);
+        fs.writeFile('./data.json', JSON.stringify(data), (err) => {
+            if (err) console.log(err);
+            console.log("Successfully Written to File.");
+        });
     } catch (err) {
         // Log any errors that occur
         console.error(err.message);
-        // Return null if there is an error
-        return null;
     }
 };
 
@@ -275,12 +279,14 @@ const addRevenueToDatabase = (amount, description, data = jsonData) => {
         };
 
         // Pushes the revenue object to the specified key in the jsonData object
-    return data['revenues'].push(object);
+        data['revenues'].push(object);
+        fs.writeFile('./data.json', JSON.stringify(data), (err) => {
+            if (err) console.log(err);
+            console.log("Successfully Written to File.");
+        });
     } catch (err) {
         // Log any errors that occur
         console.error(err.message);
-        // Return null if there is an error
-        return null;
     }
 };
 
