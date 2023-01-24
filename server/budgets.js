@@ -71,7 +71,7 @@ budgetsRouter
             key,
             value
         } = req.body;
-        const updatedBudget = updateInstanceInDatabase(req.params.id, key, value, jsonData);
+        const updatedBudget = updateInstanceInDatabase(req.params.id, key, value);
         if (updatedBudget) {
             res.status(200).send(updatedBudget);
         } else {

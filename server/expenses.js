@@ -28,8 +28,7 @@ module.exports = expensesRouter;
 // Endpoint to handle requests for the expenses
 expensesRouter
   .route('/')
-  // Get all expenses
-    // Endpoint to get all expenses
+    // Get all expenses
     .get((req, res) => {
         const allExpenses = getAllFromDatabase('expenses');
         if (allExpenses) {
@@ -72,7 +71,7 @@ expensesRouter
             key,
             value
         } = req.body;
-        const updatedExpense = updateInstanceInDatabase(req.params.id, key, value, jsonData);
+        const updatedExpense = updateInstanceInDatabase(req.params.id, key, value);
         if (updatedExpense) {
             res.status(200).send(updatedExpense);
         } else {
