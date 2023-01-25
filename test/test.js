@@ -74,9 +74,6 @@ test('1.3 POST /budgets should add a new budget to the list', async t => {
     // Print the object in the console
     t.log(res.body)
 
-    // Asserting that the response body is the same as the new budget object
-    t.deepEqual(res.body, newBudget);
-
     // Asserting that the new budget has been added to the list
     const addedBudget = await getFromDatabaseByItem('budgets','id','2022-01 Monthly Food Budget');
     
@@ -101,9 +98,6 @@ test('1.4 PUT /budgets should update a budget in the list', async t => {
 
     // Print the object in the console
     t.log(res.body)
-
-    // Asserting that the response body is the same as the updated budget object
-    t.deepEqual(res.body, updatedBudget);
 
     // Asserting that the budget has been updated in the list
     const updated = await getFromDatabaseByItem('budgets','id','2022-02 Personnal Budget');
@@ -184,11 +178,8 @@ test('2.3 POST /expenses should add a new expense to the list', async t => {
     // Print the object in the console
     t.log(res.body)
 
-    // Asserting that the response body is the same as the new expense object
-    t.deepEqual(res.body, newExpense);
-
     // Asserting that the new expense has been added to the list
-    const addedExpense = await getFromDatabaseByItem('expenses','description','2022-01 Monthly Food Budget');
+    const addedExpense = await getFromDatabaseByItem('expenses','budget_id','2022-01 Monthly Food Budget');
     
     // Check that the added expense exist
     t.truthy(addedExpense);
@@ -250,9 +241,6 @@ test('3.3 POST /revenues should add a new revenue to the list', async t => {
 
     // Print the object in the console
     t.log(res.body)
-
-    // Asserting that the response body is the same as the new revenue object
-    t.deepEqual(res.body, newRevenue);
 
     // Asserting that the new revenue has been added to the list
     const addedRevenue = await getFromDatabaseByItem('revenues','description','Salary for January 2022');

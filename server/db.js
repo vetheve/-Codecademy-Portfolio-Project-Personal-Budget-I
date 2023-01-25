@@ -212,7 +212,7 @@ const addBudgetToDatabase = (id, category, amount, data = jsonData) => {
         const isoString = new Date(timestamp).toISOString();
 
         // Creates budget object with provided information and default timestamp and ID values
-        const object = {
+        const element = {
             id: id,
             dt_create: isoString,
             dt_update: isoString,
@@ -222,8 +222,9 @@ const addBudgetToDatabase = (id, category, amount, data = jsonData) => {
         };
 
         // Pushes the budget object to the jsonData
-        return data['budgets'].push(object);
-        fs.writeFileSync('./server/data.json', JSON.stringify(data))
+        data['budgets'].push(element);
+        fs.writeFileSync('./server/data.json', JSON.stringify(data));
+        return element;
     } catch (err) {
         // Log any errors that occur
         console.error(err.message);
@@ -241,7 +242,7 @@ const addExpenseToDatabase = (amount, description, budget_id, category, data = j
         const newId = generateULID();
 
         // Creates  expense object with provided information and default timestamp and ID values
-        const object = {
+        const element = {
             id: newId,
             dt_create: isoString,
             dt_update: isoString,
@@ -253,11 +254,9 @@ const addExpenseToDatabase = (amount, description, budget_id, category, data = j
         };
 
         // Pushes the expenses object to the jsonData
-        return data['expenses'].push(object);
-        fs.writeFileSync('./server/data.json', JSON.stringify(data), (err) => {
-            if (err) console.log(err);
-            console.log("Successfully Written to File.");
-        });
+        data['expenses'].push(element);
+        fs.writeFileSync('./server/data.json', JSON.stringify(data));
+        return element;
     } catch (err) {
         // Log any errors that occur
         console.error(err.message);
@@ -275,7 +274,7 @@ const addRevenueToDatabase = (amount, description, data = jsonData) => {
         const newId = generateULID();
 
         // Creates revenue object with provided information and default timestamp and ID values
-        const object = {
+        const element = {
             id: newId,
             dt_create: isoString,
             dt_update: isoString,
@@ -285,11 +284,9 @@ const addRevenueToDatabase = (amount, description, data = jsonData) => {
         };
 
         // Pushes the revenue object to the specified key in the jsonData object
-        return data['revenues'].push(object);
-        fs.writeFileSync('./server/data.json', JSON.stringify(data), (err) => {
-            if (err) console.log(err);
-            console.log("Successfully Written to File.");
-        });
+        data['revenues'].push(element);
+        fs.writeFileSync('./server/data.json', JSON.stringify(data));
+        return element;
     } catch (err) {
         // Log any errors that occur
         console.error(err.message);
@@ -336,28 +333,22 @@ const updateInstanceInDatabase = (id, key, value, data = jsonData) => {
         const isoString = new Date(timestamp).toISOString();
 
         // Find the object that matches the provided id
-        const object = data.budgets.concat(data.expenses, data.revenues)
+        const element = data.budgets.concat(data.expenses, data.revenues)
             .find(instance => instance.id === id);
 
         // If the object is not found, throw an error
-        if (!object) {
+        if (!element) {
             throw new Error("Instance not found");
         }
 
         // Update the key value and dt_update properties
-        object[key] = value;
-        object.dt_update = isoString;
+        element[key] = value;
+        element.dt_update = isoString;
         console.log("Successfully Updated");
 
         // write the updated data to the file
-        fs.writeFileSync('./server/data.json', JSON.stringify(data), (err) => {
-            if (err) {
-                //handling error while writing the file
-                console.log(err);
-            } else {
-                console.log("Successfully Written to File.");
-            }
-        });
+        fs.writeFileSync('./server/data.json', JSON.stringify(data));
+        return 
     } catch (error) {
         // Log any errors that occur
         console.log(error);
