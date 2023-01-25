@@ -12,7 +12,7 @@ const {
     addBudgetToDatabase,
     deleteFromDatabasebyId,
     updateInstanceInDatabase
-} = require('./db.js')
+} = require('./db.js');
 
 // Export budgetsRouter for use in other modules
 module.exports = budgetsRouter;

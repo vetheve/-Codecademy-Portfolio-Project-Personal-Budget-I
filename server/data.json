@@ -479,6 +479,14 @@
       "dt_value": "2021-12-02T00:04:05.000Z",
       "category": "personal:",
       "amount": "200"
+    },
+    {
+      "id": "2022-02 Personnal Budget",
+      "dt_create": "2023-01-25T06:49:04.171Z",
+      "dt_update": "2023-01-25T06:49:04.171Z",
+      "dt_value": "2023-01-25T06:49:04.171Z",
+      "category": "personnal",
+      "amount": "0"
     }
   ],
   "expenses": [
