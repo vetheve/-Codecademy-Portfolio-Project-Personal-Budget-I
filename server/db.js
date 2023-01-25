@@ -222,11 +222,8 @@ const addBudgetToDatabase = (id, category, amount, data = jsonData) => {
         };
 
         // Pushes the budget object to the jsonData
-        data['budgets'].push(object);
-        fs.writeFile('./server/data.json', JSON.stringify(data), (err) => {
-            if (err) console.log(err);
-            console.log("Successfully Written to File.");
-        });
+        return data['budgets'].push(object);
+        fs.writeFileSync('./server/data.json', JSON.stringify(data))
     } catch (err) {
         // Log any errors that occur
         console.error(err.message);
@@ -249,7 +246,6 @@ const addExpenseToDatabase = (amount, description, budget_id, category, data = j
             dt_create: isoString,
             dt_update: isoString,
             dt_value: isoString,
-            category: category,
             amount: amount,
             description: description,
             budget_id: budget_id,
@@ -257,8 +253,8 @@ const addExpenseToDatabase = (amount, description, budget_id, category, data = j
         };
 
         // Pushes the expenses object to the jsonData
-        data['expenses'].push(object);
-        fs.writeFile('./server/data.json', JSON.stringify(data), (err) => {
+        return data['expenses'].push(object);
+        fs.writeFileSync('./server/data.json', JSON.stringify(data), (err) => {
             if (err) console.log(err);
             console.log("Successfully Written to File.");
         });
@@ -289,8 +285,8 @@ const addRevenueToDatabase = (amount, description, data = jsonData) => {
         };
 
         // Pushes the revenue object to the specified key in the jsonData object
-        data['revenues'].push(object);
-        fs.writeFile('./server/data.json', JSON.stringify(data), (err) => {
+        return data['revenues'].push(object);
+        fs.writeFileSync('./server/data.json', JSON.stringify(data), (err) => {
             if (err) console.log(err);
             console.log("Successfully Written to File.");
         });
@@ -314,7 +310,7 @@ const deleteFromDatabasebyId = (id, data = jsonData) => {
                 return element.id !== id;
             });
         }
-        fs.writeFile('./server/data.json', JSON.stringify(data), (err) => {
+        fs.writeFileSync('./server/data.json', JSON.stringify(data), (err) => {
             if (err) {
                 //handling error while writing the file
                 console.log(err);
@@ -354,7 +350,7 @@ const updateInstanceInDatabase = (id, key, value, data = jsonData) => {
         console.log("Successfully Updated");
 
         // write the updated data to the file
-        fs.writeFile('./server/data.json', JSON.stringify(data), (err) => {
+        fs.writeFileSync('./server/data.json', JSON.stringify(data), (err) => {
             if (err) {
                 //handling error while writing the file
                 console.log(err);
