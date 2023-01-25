@@ -7,19 +7,11 @@ revenuesRouter.use(bodyParser.json());
 
 // Import functions from db.js
 const {
-  getAllFromDatabase,
-  getFromDatabaseById,
-  getFromDatabaseByItem,
-  getFromDatabaseByCategory,
-  filterNetBalanceByMonth,
-  filterNetBalanceByYear,
-  filterBudgetBalanceByMonth,
-  filterBudgetBalanceByYear,
-  addBudgetToDatabase,
-  addExpenseToDatabase,
-  addRevenueToDatabase,
-  calculateNetBalance,
-  calculateBudgetBalance,
+    getAllFromDatabase,
+    getFromDatabaseById,
+    addRevenueToDatabase,
+    deleteFromDatabasebyId,
+    updateInstanceInDatabase
 } = require('./db.js')
 
 // Export revenuesRouter for use in other modules
@@ -41,9 +33,9 @@ revenuesRouter
     })
     // Add a new revenues to the list
     .post((req, res) => {
-        const addedExpense = addRevenueToDatabase(req.body.amount, req.body.description);
-        if (addedExpense) {
-            res.status(201).send(addedExpense);
+        const addedRevenue = addRevenueToDatabase(req.body.amount, req.body.description);
+        if (addedRevenue) {
+            res.status(201).send(addedRevenue);
         } else {
             res.status(400).send({
                 error: "Failed to add revenue"

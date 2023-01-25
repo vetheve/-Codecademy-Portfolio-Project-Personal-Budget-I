@@ -9,7 +9,7 @@ netBalanceRouter.use(bodyParser.json());
 const {
     filterNetBalanceByMonth,
     filterNetBalanceByYear,
-    calculateNetBalance,
+    calculateNetBalance
 } = require('./db.js')
 
 // Export balanceRouter for use in other modules

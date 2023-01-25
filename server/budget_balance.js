@@ -7,19 +7,10 @@ budgetBalanceRouter.use(bodyParser.json());
 
 // Import functions from db.js
 const {
-  getAllFromDatabase,
-  getFromDatabaseById,
-  getFromDatabaseByItem,
-  getFromDatabaseByCategory,
-  filterNetBalanceByMonth,
-  filterNetBalanceByYear,
-  filterBudgetBalanceByMonth,
-  filterBudgetBalanceByYear,
-  addBudgetToDatabase,
-  addExpenseToDatabase,
-  addRevenueToDatabase,
-  calculateNetBalance,
-  calculateBudgetBalance,
+    getFromDatabaseByCategory,
+    filterBudgetBalanceByMonth,
+    filterBudgetBalanceByYear,
+    calculateBudgetBalance
 } = require('./db.js')
 
 // Export balanceRouter for use in other modules

@@ -448,6 +448,8 @@ module.exports = {
     addBudgetToDatabase,
     addExpenseToDatabase,
     addRevenueToDatabase,
+    deleteFromDatabasebyId,
+    updateInstanceInDatabase,
     calculateNetBalance,
     calculateBudgetBalance,
     generateULID
