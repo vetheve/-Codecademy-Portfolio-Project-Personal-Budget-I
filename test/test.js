@@ -89,7 +89,7 @@ test('1.4 PUT /budgets should update a budget in the list', async t => {
 
     // Creating a new budget object to update
     const updatedBudget = {
-        id: "2022-02 Personnal Budget",
+        id: "2021-12 Monthly Personnal Budget",
         category: "Very personnal",
     };
 
