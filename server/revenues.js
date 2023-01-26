@@ -59,11 +59,7 @@ revenuesRouter
     })
     // Update an existing revenue from the list
     .put((req, res) => {
-        const {
-            key,
-            value
-        } = req.body;
-        const updatedRevenue = updateInstanceInDatabase(req.params.id, key, value, jsonData);
+        const updatedRevenue = updateInstanceInDatabase('revenues',req.params.id, req.body.item, req.body.value);
         if (updatedRevenue) {
             res.status(200).send(updatedRevenue);
         } else {

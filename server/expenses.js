@@ -59,11 +59,7 @@ expensesRouter
     })
     // Update an existing expense in the list
     .put((req, res) => {
-        const {
-            key,
-            value
-        } = req.body;
-        const updatedExpense = updateInstanceInDatabase(req.params.id, key, value);
+        const updatedExpense = updateInstanceInDatabase('expenses',req.params.id, req.body.item, req.body.value);
         if (updatedExpense) {
             res.status(200).send(updatedExpense);
         } else {
