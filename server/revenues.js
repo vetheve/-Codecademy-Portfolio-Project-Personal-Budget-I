@@ -76,7 +76,7 @@ revenuesRouter
     .delete((req, res) => {
         const deletedRevenue = deleteFromDatabasebyId(req.params.id);
         if (deletedRevenue) {
-            res.status(200).send(deletedRevenue);
+            res.status(204).send(deletedRevenue);
         } else {
             res.status(404).send({
                 error: "Failed to delete revenue"

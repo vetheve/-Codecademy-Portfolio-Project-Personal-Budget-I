@@ -76,7 +76,7 @@ budgetsRouter
     .delete((req, res) => {
         const deletedBudget = deleteFromDatabasebyId(req.params.id);
         if (deletedBudget) {
-            res.status(200).send(deletedBudget);
+            res.status(204).send(deletedBudget);
         } else {
             res.status(404).send({
                 error: "Failed to delete budget"

@@ -24,21 +24,21 @@ const getAllFromDatabase = (key) => {
 const getFromDatabaseById = (id, data = jsonData) => {
     try {
         // Initialize object variable to null
-        let object = null;
+        let element = null;
 
         // Iterate over keys of data object
         Object.keys(data).some(key => {
             // Find object with matching id
-            object = data[key].find(item => {
+            element = data[key].find(item => {
                 return item.id === id;
             });
 
             // Return true if object is found
-            return object !== undefined;
+            return element !== undefined;
         });
 
         // Return the object or null if not found
-        return object;
+        return element;
     } catch (error) {
         // Log any errors to the console
         console.log(error);
@@ -307,14 +307,8 @@ const deleteFromDatabasebyId = (id, data = jsonData) => {
                 return element.id !== id;
             });
         }
-        fs.writeFileSync('./server/data.json', JSON.stringify(data), (err) => {
-            if (err) {
-                //handling error while writing the file
-                console.log(err);
-            } else {
-                console.log("Successfully Written to File.");
-            }
-        });
+        fs.writeFileSync('./server/data.json', JSON.stringify(data));
+        return data;
     } catch (err) {
         // Log any errors that occur
         console.error(err.message);
@@ -348,7 +342,7 @@ const updateInstanceInDatabase = (id, key, value, data = jsonData) => {
 
         // write the updated data to the file
         fs.writeFileSync('./server/data.json', JSON.stringify(data));
-        return 
+        return element
     } catch (error) {
         // Log any errors that occur
         console.log(error);

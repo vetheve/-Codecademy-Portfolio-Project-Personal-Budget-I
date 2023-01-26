@@ -100,7 +100,7 @@ test('1.4 PUT /budgets should update a budget in the list', async t => {
     t.log(res.body)
 
     // Asserting that the budget has been updated in the list
-    const updated = await getFromDatabaseByItem('budgets','id','2022-02 Personnal Budget');
+    const updated = await getFromDatabaseByItem('budgets','id','2021-12 Monthly Personnal Budget');
     
     // Check that the added budget exist
     t.truthy(updated);

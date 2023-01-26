@@ -74,9 +74,9 @@ expensesRouter
     })
     // Delete a specific expense from the list
     .delete((req, res) => {
-        const deletedExpense = deleteFromDatabasebyId(req.params.id);
+        const deletedExpense = deleteFromDatabasebyId('expenses',req.params.id);
         if (deletedBudget) {
-            res.status(200).send(deletedExpense);
+            res.status(204).send(deletedExpense);
         } else {
             res.status(404).send({
                 error: "Failed to delete expense"
