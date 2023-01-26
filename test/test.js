@@ -81,30 +81,31 @@ test('1.3 POST /budgets should add a new budget to the list', async t => {
     t.truthy(addedBudget);
 });
 
-// Test to check if the POST request to '/budgets' route add a new budget in the list budgets
+// Test to check if the PUT request to '/budgets' route add a new budget in the list budgets
 test('1.4 PUT /budgets should update a budget in the list', async t => {
+
+    // Selecting a budget ID to test with
+    const budgetId = "2021-12 Monthly Personnal Budget";
 
     // Creating a new budget object to update
     const updatedBudget = {
-        id: "2021-12 Monthly Personnal Budget",
-        category: "Very personnal",
+        item: "category",
+        value: "Very personnal"
     };
-
-    // Making a PUT request to the '/budgets' route with the updated budget object
-    const res = await request(app).put('/budgets').send(updatedBudget);
+    
+    // Making a PUT request to the '/budgets/:id' route with the updated budget object
+    const res = await request(app).put(`/budgets/${budgetId}`).send(updatedBudget);
 
     // Asserting that the status code of the response is 200
     t.is(res.status, 200);
 
-    // Print the object in the console
-    t.log(res.body)
-
     // Asserting that the budget has been updated in the list
     const updated = await getFromDatabaseByItem('budgets','id','2021-12 Monthly Personnal Budget');
-    
+
     // Check that the added budget exist
     t.truthy(updated);
 });
+
 
 // Test to check if the DELETE request to '/budgets' route delete a specific budget by ID
 test('1.5 DELETE /budgets/:id should delete a specific budget with the given ID', async t => {

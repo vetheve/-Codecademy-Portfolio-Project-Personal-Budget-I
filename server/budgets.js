@@ -59,11 +59,7 @@ budgetsRouter
     })
     // Update an existing budget in the list
     .put((req, res) => {
-        const {
-            key,
-            value
-        } = req.body;
-        const updatedBudget = updateInstanceInDatabase(req.params.id, key, value);
+        const updatedBudget = updateInstanceInDatabase('budgets',req.params.id, req.body.item, req.body.value);
         if (updatedBudget) {
             res.status(200).send(updatedBudget);
         } else {

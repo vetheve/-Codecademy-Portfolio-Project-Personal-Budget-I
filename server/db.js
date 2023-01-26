@@ -320,15 +320,14 @@ const deleteFromDatabasebyId = (id, data = jsonData) => {
 /*PUT FUNCTION*/
 
 // This function update a specific object in the jsonData
-const updateInstanceInDatabase = (id, key, value, data = jsonData) => {
+const updateInstanceInDatabase = (key, id, item, value, data = jsonData) => {
     try {
         // Generates timestamp and converts it to ISO string format
         const timestamp = Date.now();
         const isoString = new Date(timestamp).toISOString();
 
         // Find the object that matches the provided id
-        const element = data.budgets.concat(data.expenses, data.revenues)
-            .find(instance => instance.id === id);
+        const element = data[key].find(element => element.id === id);
 
         // If the object is not found, throw an error
         if (!element) {
@@ -336,7 +335,7 @@ const updateInstanceInDatabase = (id, key, value, data = jsonData) => {
         }
 
         // Update the key value and dt_update properties
-        element[key] = value;
+        element[item] = value;
         element.dt_update = isoString;
         console.log("Successfully Updated");
 
