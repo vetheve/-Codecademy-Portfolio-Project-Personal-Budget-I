@@ -17,7 +17,7 @@ Prerequisites:
 - Node.js
 - Express
 - Git and GitHub
-- Postman
+- Postman (in my case Thunder Client)
 
 ## Envelopes Budgeting
 
@@ -44,372 +44,49 @@ $$
 > In summary, __Budgeted Amount Balance__ is a measure of how well you are sticking to your budget, while __Net Financial Balance__ is a measure of the overall financial health.
 
 ## Endpoints
-- `/budgets` (CR)
-- `/budgets/{budget_id}` (RUD)
-- `/expenses` (CR)
-- `/expenses/{expense_id}` (RUD)
-- `/revenues` (CR)
-- `/expenses/{revenue_id}` (RUD)
-- `/balance` (Read-Only)
-- `/budgets/balance/YYYY/MM` (Read-Only)
-- `/budgets/{budget_id}/balance/YYYY/MM` (Read-Only)
+### `/budgets` (CRUD)
 
-## Endpoints Models
-### `/budgets`
-#### CREATE
-- __POST /budgets__ -- Creates a new budget object.
+- __GET__ `/budgets`: Retrieves all budgets and sends them as a response. If not found, sends error message.
+- __POST__ `/budgets`: Attempts to add a new budget and sends the added budget as response. If fails, sends error message.
+- __GET__ `/budgets/:id`: Retrieves a specific budget by ID and sends it as a response. If not found, sends error message.
+- __PUT__ `/budgets/:id`: Attempts to update a specific budget by ID and sends the updated budget as response. If fails, sends error message.
+- __DELETE__ `/budgets/:id`: Attempts to delete a specific budget by ID and sends a successful deletion message. If fails, sends error message.
 
-##### Request 
-```javascript
-{
-    "id": String
-    "name": String
-    "amount": Number
-}
-```
-##### Response
-```javascript
-{
-    "id": String
-    "name": String
-    "amount": Number
-}
-```
-#### READ
-- __GET /budgets__ -- Retrieves a list of all budget objects.
-```javascript
-[{
-    "id": String
-    "name": String
-    "amount": Number
-},
-...
-{
-    "id": String
-    "name": String
-    "amount": Number
-}]
-```
-#### *Code snippet*
-```javascript
-// Endpoint to handle requests to budgets  
-budgetsRouter
-  .route('/budgets')
-  // Endpoint to get all budgets
-  .get((req, res) => res.send(getAllFromDatabase('budgets')))
-  // Add a new budget to the list
-  .post((req, res) => res.status(201).send(addToDatabase('budgets', req.body)));
-```
+### `/expenses` (CRUD)
 
-### `/budgets/{budget_id}`
-#### READ
-- __GET /budgets/:budget_id__ -- Retrieves a specific budget object with the given ID.
-```javascript
-{
-    "id": String
-    "name": String
-    "amount": Number
-}
-```
-#### UPDATE
-* __PUT /budgets/:budget_id__ -- Updates a specific budget object with the given ID. 
-```javascript
-{
-    "id": String
-    "name": String
-    "amount": Number
-}
-```
-#### DELETE
-* __DELETE /budgets/:budget_id__ -- Deletes a specific budget object with the given ID. 
-```javascript
-Empty
-```
-#### *Code snippet*
-```javascript
-// Endpoint to handle requests to a specific budget resource by ID
-budgetsRouter
-  .route('/budgets/:budgetId')
-  // Get a specific budget by ID
-  .get((req, res) => res.send(getFromDatabasebyId('budgets', req.params.budgetId)))
-  // Update an existing budget in the list
-  .put((req, res) => res.send(updateInstanceInDatabase('budgets', req.params.budgetId, req.body)))
-  // Delete a specific budget from the list
-  .delete((req, res) => res.sendStatus(deleteFromDatabasebyId('budgets', req.params.budgetId)? 204 : 500));
-```
+- __GET__ `/expenses`: Retrieves all expenses from the database and sends them as a response. If not found, sends error message.
+- __POST__ `/expenses`: Attempts to add a new expense to the database and sends the added expense as response. If fails, sends error message.
+- __GET__ `/expenses/:id`: Attempts to retrieve a specific expense by ID and sends it as a response. If not found, sends error message.
+- __PUT__ `/expenses/:id`: Attempts to update an existing expense by ID and sends it as a response. If not found, sends error message.
+- __DELETE__ `/expenses/:id`: Attempts to delete a specific expense by ID and sends it as a response. If not found, sends error message.
 
-### `/expenses`
-#### CREATE
-- __POST /expenses__ -- Creates a new expense object.
-```javascript
-{
-    "id": String, //use ulid
-    "dt_create": String //isoString DateTime 
-    "dt_update": String //isoString DateTime 
-    "dt_value": String //isoString DateTime 
-    "amount": Number
-    "description": String
-    "budget_id": String
-}
-```
-#### READ
-- __GET /expenses__ -- Retrieves a list of all expense objects.
-```javascript
-[{
-    "id": String, //use ulid
-    "dt_create": String //isoString ISO 8601 
-    "dt_update": String //isoString ISO 8601 
-    "dt_value": String //isoString ISO 8601 
-    "amount": Number
-    "description": String
-    "budget_id": String
-},
-...
-{
-    "id": String, //use ulid
-    "dt_create": String //isoString ISO 8601 
-    "dt_update": String //isoString ISO 8601 
-    "dt_value": String //isoString ISO 8601 
-    "amount": Number
-    "description": String
-    "budget_id": String
-}]
-```
-#### *Code snippet*
-```javascript
-// Endpoint to handle requests for the expenses
-expensesRouter
-  .route('/expenses')
-  // Get all expenses
-  .get((req, res) => res.send(getAllFromDatabase('expenses')))
-  // Create a new expense
-  .post((req, res) => res.send(addToDatabase('expenses', req.body)));
-```
+### `/revenues` (CRUD)
 
-### `/expenses/{expense_id}`
-#### READ
-- __GET /expenses/:id__ -- Retrieves a specific expense object with the given ID.
-```javascript
-{
-    "id": String, //use ulid
-    "dt_create": String //isoString ISO 8601 
-    "dt_update": String //isoString ISO 8601
-    "dt_value": String //isoString ISO 8601  
-    "amount": Number
-    "description": String
-    "budget_id": String
-}
-```
-#### UPDATE
-- __PUT /expenses/:id__ -- Updates a specific expense object with the given ID.
-```javascript
-{
-    "id": String, //use ulid
-    "dt_create": String //isoString ISO 8601 
-    "dt_update": String //isoString ISO 8601
-    "dt_value": String //isoString ISO 8601  
-    "amount": Number
-    "description": String
-    "budget_id": String
-}
-```
-#### DELETE
-- __DELETE /expenses/:id__ -- Deletes a specific expense object with the given ID.
-```javascript
-Empty
-```
-#### *Code snippet*
-```javascript
-// Endpoint to handle requests to a specific expense resource by ID
-expensesRouter
-  .route('expenses/:expenseId')
-  // Get a specific expense by ID
-  .get((req, res) => res.send(getFromDatabasebyId('expenses', req.params.expenseId)))
-  // Update an existing expense in the list
-  .put((req, res) => res.send(updateInstanceInDatabase('expenses', req.params.expenseId, req.body)))
-  // Delete a specific expense from the list
-  .delete((req, res) => res.sendStatus(deleteFromDatabasebyId('expenses', req.params.expenseId)? 204 : 500));
-```
-### `/revenues`
-#### CREATE
-- __POST /revenues__ -- Creates a new revenue object.
-```javascript
-{
-    "id": String, //use ulid
-    "dt_create": String //isoString ISO 8601 
-    "dt_update": String //isoString ISO 8601
-    "dt_value": String //isoString ISO 8601  
-    "amount": Number
-    "description": String
-}
-```
-#### READ
-- __GET /revenues__ -- Retrieves a list of all revenue objects.
-```javascript
-{
-    "id": String, //use ulid
-    "dt_create": String //isoString ISO 8601 
-    "dt_update": String //isoString ISO 8601
-    "dt_value": String //isoString ISO 8601  
-    "amount": Number
-    "description": String
-}
-```
-#### *Code snippet*
-```javascript
-// Endpoint to handle requests for the revenues
-revenuesRouter
-  .route('/revenues')
-  // Get all revenues
-  .get((req, res) => res.send(getAllFromDatabase('revenues')))
-  // Create a new revenue
-  .post((req, res) => res.send(addToDatabase('revenues', req.body)));
-```
-### `/revenues/{revenue_id}`
-#### READ
-- __GET /revenues/:id__ -- Retrieves a specific revenue object with the given ID.
-```javascript
-{
-    "id": String, //use ulid
-    "dt_create": String //isoString ISO 8601 
-    "dt_update": String //isoString ISO 8601
-    "dt_value": String //isoString ISO 8601  
-    "amount": Number
-    "description": String
-}
-```
-#### UPDATE
-- __PUT /revenues/:id__ -- Updates a specific revenue object with the given ID.
-```javascript
-{
-    "id": String, //use ulid
-    "dt_create": String //isoString ISO 8601 
-    "dt_update": String //isoString ISO 8601
-    "dt_value": String //isoString ISO 8601  
-    "amount": Number
-    "description": String
-}
-```
-#### DELETE
-- __DELETE /revenues/:id__ -- Deletes a specific revenue object with the given ID.
-```javascript
-Empty
-```
-#### *Code snippet*
-```javascript
-// Endpoint to handle requests to a specific revenue resource by ID
-revenuesRouter
-  .route('/:revenueId')
-  // Get a specific revenue by ID
-  .get((req, res) => res.send(getFromDatabasebyId('revenues', req.params.revenueId)))
-  // Update an existing revenue in the list
-  .put((req, res) => res.send(updateInstanceInDatabase('revenues', req.params.revenueId, req.body)))
-  // Delete a specific revenue from the list
-  .delete((req, res) => res.sendStatus(deleteFromDatabasebyId('revenues', req.params.revenueId)? 204 : 500));
-```
-### `/balance`
-#### READ
-- __GET /balance__: Retrieves a list of all budget objects.
-- The endpoint does not require any parameters in the request body?
+- __GET__ `/revenues`: Retrieves all revenues and sends them as a response. If not found, sends error message.
+- __POST__ `/revenues`: Attempts to add a new revenue and sends the added revenue as response. If fails, sends error message.
+- __GET__ `/revenues/:id`: Retrieves a specific revenue by ID and sends it as a response. If not found, sends error message.
+- __PUT__ `/revenues/:id`: Attempts to update a specific revenue by ID and sends the updated revenue as response. If fails, sends error message.
+- __DELETE__ `/revenues/:id`: Attempts to delete a specific revenue by ID and sends a successful deletion message. If fails, sends error message.
 
-##### Request
-```javascript
-Empty
-```
-##### Reponse
-```javascript
-[{
-    "id": String,
-    "name": String,
-    "budgeted_amount": Number,
-    "expenses": Number,
-    "balance": Number
-},
-...
-{
-    "id": String,
-    "name": String,
-    "budgeted_amount": Number,
-    "expenses": Number,
-    "balance": Number
-}]
-```
-#### *Code snippet*
-```javascript
-// Endpoint to handle requests for the balances
-balancesRouter
-  .route('/balances')
-  // Get all revenues
-  .get((req, res) => res.send(getAllFromDatabase('balances')))
-```
-### `/budgets/balance/YYYY/MM`
-#### READ
-- __GET /budgets/balance/YYYY/MM__ -- Retrieves a specific list of all objects representing the balance information for each budget category in the specified month and year.
-- The endpoint does not require any parameters in the request body?
+### `/netbalance` (Read-Only)
 
-##### Request
-```javascript
-Empty
-```
-##### Reponse
-```javascript
-[{
-    "id": String,
-    "name": String,
-    "budgeted_amount": Number,
-    "expenses": Number,
-    "balance": Number
-},
-...
-{
-    "id": String,
-    "name": String,
-    "budgeted_amount": Number,
-    "expenses": Number,
-    "balance": Number
-}]
-```
+- __GET__ `/netbalance`: Retrieves the total net balance.
+- __GET__ `/netbalance/:year/:month` : Retrieves the total net balance for a specific year and month by filtering the net balance data by month and year.
+- __GET__ `/netbalance/:year` : Retrieves the total net balance for a specific year by filtering the net balance data by year.
 
-#### *Code snippet*
-```javascript
-// Endpoint to handle requests for the balances
-balancesRouter
-  .route('/balances')
-  // Get all revenues
-  .get((req, res) => res.send(getAllFromDatabase('balances')))
-```
+All the endpoints will return a JSON object containing the net balance data if it is found, otherwise it will return a 404 error with a message indicating that the net balance data was not found.
 
-### `/budgets/{budget_id}/balance/YYYY/MM`
-- __GET /budgets/:id/balance/YYYY/MM__ -- Retrieves the balance information for a specific budget category identified by ID for the specified month and year.
-- The endpoint does not require any parameters in the request body?
+### `/budgetbalance` (Read-Only)
 
-#### READ
-##### Request
-```javascript
-Empty
-```
-##### Reponse
-```javascript
-{
-    "id": String,
-    "name": String,
-    "budgeted_amount": Number,
-    "expenses": Number,
-    "balance": Number
-}
-```
-#### *Code snippet*
-```javascript
-// Endpoint to handle requests for the balances
-balancesRouter
-  .route('/balances/:year/:month')
-  // Get all revenues for a specific month and year
-  .get((req, res) => {
-    const year = req.params.year;
-    const month = req.params.month;
-    res.send(getAllFromDatabase('balances', year, month));
-  });
-```
+- __GET__ `/budgetbalance` : Retrieves the total budget balance without any filtering.
+- __GET__ `/budgetbalance/` :year/:month : Retrieves the total budget balance for a specific year and month by filtering the budget balance data by month and year.
+- __GET__ `/budgetbalance/:year` : Retrieves the total budget balance for a specific year by filtering the budget balance data by year.
+- __GET__ `/budgetbalance/:category` : Retrieves the total budget balance for a specific category by filtering the budget balance data by category.
+- __GET__ `/budgetbalance/:year/:category` : Retrieves the total budget balance for a specific category and year by filtering the budget balance data by year and category.
+- __GET__ `/budgetbalance/:year/:month/:category` : Retrieves the total budget balance for a specific category, year and month by filtering the budget balance data by year, month and category.
+
+All the endpoints will return a JSON object containing the budget balance data if it is found, otherwise it will return a 404 error with a message indicating that the budget balance data was not found.
+
 
 ## Models
 ### Budget

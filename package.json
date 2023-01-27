@@ -4,6 +4,9 @@
     "express": "^4.18.2",
     "ulid": "^2.3.0"
   },
+  "name": "budget_api_with_node",
+  "version": "1.0.0",
+  "main": "server.js",
   "scripts": {
     "test": "ava"
   },
